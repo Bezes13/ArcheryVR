@@ -5,8 +5,10 @@ using UnityEngine;
 public class Bow : MonoBehaviour
 {
     private Animator _animator;
+    private bool isArrowAttached;
 
     [SerializeField] private Transform arrowStringPosition;
+    [SerializeField] private Transform arrowWoodPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +24,15 @@ public class Bow : MonoBehaviour
     public Vector3 GetArrowStringPosition()
     {
         return arrowStringPosition.position;
+    }
+
+    public Vector3 GetArrowWoodPosition()
+    {
+        return arrowWoodPosition.position;
+    }
+
+    public void attachArrow()
+    {
+        isArrowAttached = true;
     }
 }

@@ -14,7 +14,7 @@ namespace Unity.Template.VR
         private bool _isGrabbed;
         private bool _isAttachedToBow;
 
-        private const float ArrowStingOffset = 1.0f;
+        private const float ArrowStingOffset = 0.05f;
 
         private void Start()
         {
@@ -31,6 +31,9 @@ namespace Unity.Template.VR
 
             if (_isAttachedToBow)
             {
+                transform.rotation = bow.transform.rotation;
+                //transform.Rotate(new Vector3(0,bow.transform.rotation.z - bow.transform.rotation.y,90), Space.World);
+            
                 transform.position = arrowStringPosition + transform.position - stingTransform.position;
             }
         }
