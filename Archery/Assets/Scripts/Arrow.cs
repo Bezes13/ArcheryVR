@@ -13,6 +13,7 @@ namespace Unity.Template.VR
         
         private bool _isGrabbed;
         private bool _isAttachedToBow;
+        private bool _fired;
 
         private const float ArrowStingOffset = 0.05f;
 
@@ -24,6 +25,10 @@ namespace Unity.Template.VR
         private void Update()
         {
             var arrowStringPosition = bow.GetArrowStringPosition();
+            if(_fired)
+            {
+                GameObject.Destroy(this.gameObject);
+            }
             if (_isGrabbed && Vector3.Distance(stingTransform.position, arrowStringPosition) <= ArrowStingOffset)
             {
                 _isAttachedToBow = true;
@@ -32,7 +37,7 @@ namespace Unity.Template.VR
             if (_isAttachedToBow)
             {
                 transform.rotation = bow.transform.rotation;
-                //transform.Rotate(new Vector3(0,bow.transform.rotation.z - bow.transform.rotation.y,90), Space.World);
+                transform.Rotate(0,0,-90);
             
                 transform.position = arrowStringPosition + transform.position - stingTransform.position;
             }
@@ -42,9 +47,21 @@ namespace Unity.Template.VR
         {
             _isGrabbed = true;
         }
+        
         public void UnGrab()
         {
             _isGrabbed = false;
         }
+
+        public void FireArrow()
+        {
+            if(!bow.IsBowTensed() || !_isAttachedToBow)
+            {
+                return;
+            }
+            _isAttachedToBow = false;
+            _fired = true;
+        }
+
     }
 }

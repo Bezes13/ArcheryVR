@@ -18,11 +18,12 @@ public class Bow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        arrowStringPosition.localPosition = new Vector3(0,Mathf.Max(-0.0738f, arrowStringPosition.localPosition.y),0);
     }
 
     public Vector3 GetArrowStringPosition()
     {
+        arrowStringPosition.localPosition = new Vector3(0,arrowStringPosition.localPosition.y,0);
         return arrowStringPosition.position;
     }
 
@@ -35,4 +36,10 @@ public class Bow : MonoBehaviour
     {
         isArrowAttached = true;
     }
+
+    public bool IsBowTensed()
+    {
+        return arrowStringPosition.localPosition.y < 0;
+    }
+    // todo move arrrow a bit to side
 }
