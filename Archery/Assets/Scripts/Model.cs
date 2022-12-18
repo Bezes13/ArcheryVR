@@ -12,5 +12,10 @@ namespace Unity.Template.VR
         {
             Points += points;
         }
+
+        public int GetPoints()
+        {
+            return Points;
+        }
     }
 }

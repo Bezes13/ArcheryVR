@@ -52,4 +52,9 @@ public class Bow : MonoBehaviour
     {
         return -arrowStringPosition.localPosition.y / MaxStingRange;
     }
+
+    public void ResetSting()
+    {
+        arrowStringPosition.localPosition = new Vector3(0,-0.01075402f,0);
+    }
 }
