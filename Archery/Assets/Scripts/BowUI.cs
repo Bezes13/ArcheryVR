@@ -13,8 +13,10 @@ namespace Unity.Template.VR
 
         private void Update()
         {
-            power.text = bow.GetBowForce().ToString();
-            angle.text = Vector3.Angle(bow.GetArrowStringPosition(), bow.GetArrowWoodPosition()) + "°";
+            power.text = Math.Round(bow.GetBowForce()).ToString();
+            Vector3 projectorvec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
+            Vector3 projectorvecdir = projectorvec.normalized;
+            angle.text = Math.Round(Vector3.Angle(projectorvecdir, new Vector3(projectorvecdir.x,0, projectorvecdir.z))) + "°";
         }
     }
 }

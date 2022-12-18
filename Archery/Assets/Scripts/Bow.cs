@@ -50,7 +50,7 @@ public class Bow : MonoBehaviour
 
     public float GetBowForce()
     {
-        return -arrowStringPosition.localPosition.y / MaxStingRange;
+        return Mathf.Min(1.0f,-arrowStringPosition.localPosition.y / MaxStingRange);
     }
 
     public void ResetSting()
