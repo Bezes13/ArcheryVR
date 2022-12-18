@@ -7,6 +7,7 @@ namespace Unity.Template.VR
     public class Model : ScriptableObject
     {
         private int Points = 0;
+        private Vector3 _windVelocity;
 
         public void AddPoints(int points)
         {
@@ -16,6 +17,11 @@ namespace Unity.Template.VR
         public int GetPoints()
         {
             return Points;
+        }
+
+        public Vector3 GetWind()
+        {
+            return _windVelocity;
         }
     }
 }
