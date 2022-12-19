@@ -72,6 +72,7 @@ namespace Unity.Template.VR
                 a = new Vector3(0,-9.81f,0);
 
                 transform.position = s;
+                transform.forward = Vector3.Slerp(transform.forward, v.normalized, Time.deltaTime);
         }
 
         public void Grab()
