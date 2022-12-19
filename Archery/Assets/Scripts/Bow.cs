@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Bow : MonoBehaviour
@@ -12,9 +11,6 @@ public class Bow : MonoBehaviour
     [SerializeField] private Transform arrowStringPosition;
     [SerializeField] private Transform arrowWoodPosition;
 
-
-    // Start is called before the first frame update
-
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -25,6 +21,9 @@ public class Bow : MonoBehaviour
     void Update()
     {
         arrowStringPosition.localPosition = new Vector3(0,Mathf.Max(-MaxStingRange, arrowStringPosition.localPosition.y),0);
+        var value = babadam(arrowStringPosition.localPosition.y);
+        Debug.Log(arrowStringPosition.localPosition.y + " - " + value);
+        _animator.SetFloat("bow", value);
     }
 
     public Vector3 GetArrowStringPosition()
@@ -50,11 +49,54 @@ public class Bow : MonoBehaviour
 
     public float GetBowForce()
     {
-        return Mathf.Min(1.0f,-arrowStringPosition.localPosition.y / MaxStingRange);
+        return Mathf.Min(1.0f,(arrowStringPosition.localPosition.y + 0.01075402f) / -(MaxStingRange-0.01075402f));
     }
 
     public void ResetSting()
     {
         arrowStringPosition.localPosition = new Vector3(0,-0.01075402f,0);
+    }
+
+    public void ShotFired()
+    {
+        _animator.SetTrigger("shot");
+    }
+
+    public float babadam(float y)
+    {
+        float[] myNum = {
+            -0.01075402f,
+            -0.01096038f,
+            -0.01180249f,
+            -0.01364458f,
+            -0.01671125f,
+            -0.02091927f,
+            -0.02597514f,
+            -0.03288396f,
+            -0.04263402f,
+            -0.0542632f,
+            -0.06590831f,
+            -0.07389119f};
+        
+        if (y >= myNum[0])
+        {
+            return 0;
+        }
+        
+        for (int i = 0; i < myNum.Length-1; i++)
+        {
+            if (y > myNum[i])
+            {
+                var f = helper(myNum[i],myNum[i+1],i);
+                
+                return (f/18.0f);
+            }
+        }
+        return 11f/18f;
+        
+        float helper(float lower, float higher, float time)
+        {
+            return time +  (lower - y)/ (lower - higher);
+        }
     }
 }

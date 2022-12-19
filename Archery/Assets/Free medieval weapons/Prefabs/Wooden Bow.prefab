@@ -1387,7 +1387,7 @@ Animator:
   m_GameObject: {fileID: 1717406733745140}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0be2ba322dd85494db39a44ee439af41, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dcd22788e205f4a2fa37b0d2d1c19b55, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1458,6 +1458,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowStringPosition: {fileID: 4429432022911190}
   arrowWoodPosition: {fileID: 4463645227392466}
+  motion: 0
+  shot: 0
 --- !u!114 &6919642047769159298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1644,6 +1646,18 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Unity.Template.VR.Arrow, Assembly-CSharp
         m_MethodName: FireArrow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 472364312}
+        m_TargetAssemblyTypeName: Bow, Assembly-CSharp
+        m_MethodName: ShotFired
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1986,7 +2000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 27.5}
+  m_AnchoredPosition: {x: 0, y: 68.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &459179183080105868
@@ -2362,7 +2376,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6076491601180916909}
-  m_LocalRotation: {x: -0.42657188, y: 0.56394726, z: -0.56394726, w: 0.42657188}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.1}
   m_ConstrainProportionsScale: 0
@@ -2371,7 +2385,7 @@ RectTransform:
   - {fileID: 5107814508650990876}
   m_Father: {fileID: 4620178347958848}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 15.792, y: 90, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
