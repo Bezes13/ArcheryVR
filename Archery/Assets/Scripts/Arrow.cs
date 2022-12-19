@@ -6,7 +6,14 @@ namespace Unity.Template.VR
     public class Arrow : MonoBehaviour
     {
         private const float ArrowStingOffset = 0.05f;
-        
+
+        // Shot Parameters
+        private const float BowStiffness = 342; // N * m^-1
+        public const float MaxStingRange = 0.0738f; // m
+        public const float InitialStingLength = 0.01075402f; // m
+        private const float BowEfficciness = 0.75f;
+        private const float ArrowMass = 0.0185f; // kg
+
         [SerializeField]
         private Transform stingTransform;
         [SerializeField]
@@ -86,10 +93,10 @@ namespace Unity.Template.VR
             }
             
             
-            Debug.LogWarning("heurica");
+           
             Vector3 hit = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
             model.AddPoints(target.GetPoints(hit));
-            Debug.Log(model.GetPoints());
+            
             v = new Vector3(0,0,0);
             a = new Vector3(0,0,0);
             _shot = false;
@@ -118,9 +125,12 @@ namespace Unity.Template.VR
                 Force = bow.GetBowForce()
             };
             
-            a = projectorvecdir * 10f;
+            a = projectorvecdir * 50f * bow.GetBowForce();
             s = transform.position;
             v = a;
+
+            float accForce= BowEfficciness*BowStiffness * (MaxStingRange-InitialStingLength) * 10;
+            Debug.Log(accForce/ArrowMass);
             
             FlyingArrow();
             bow.ResetSting();

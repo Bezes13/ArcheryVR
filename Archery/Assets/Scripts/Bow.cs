@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
-    private const float MaxStingRange = 0.0738f;
+    public const float MaxStingRange = 0.0738f; // m
     
     private Animator _animator;
     private bool isArrowAttached;
@@ -22,7 +22,6 @@ public class Bow : MonoBehaviour
     {
         arrowStringPosition.localPosition = new Vector3(0,Mathf.Max(-MaxStingRange, arrowStringPosition.localPosition.y),0);
         var value = babadam(arrowStringPosition.localPosition.y);
-        Debug.Log(arrowStringPosition.localPosition.y + " - " + value);
         _animator.SetFloat("bow", value);
     }
 
