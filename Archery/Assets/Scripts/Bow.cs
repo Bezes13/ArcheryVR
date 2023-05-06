@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
-    public const float MaxStingRange = 0.0738f; // m
-    
+    private const float MaxStingRange = 0.0738f;
+
     private Animator _animator;
     private bool isArrowAttached;
 
@@ -20,14 +20,15 @@ public class Bow : MonoBehaviour
 
     void Update()
     {
-        arrowStringPosition.localPosition = new Vector3(0,Mathf.Max(-MaxStingRange, arrowStringPosition.localPosition.y),0);
+        arrowStringPosition.localPosition =
+            new Vector3(0, Mathf.Max(-MaxStingRange, arrowStringPosition.localPosition.y), 0);
         var value = babadam(arrowStringPosition.localPosition.y);
         _animator.SetFloat("bow", value);
     }
 
     public Vector3 GetArrowStringPosition()
     {
-        arrowStringPosition.localPosition = new Vector3(0,arrowStringPosition.localPosition.y,0);
+        arrowStringPosition.localPosition = new Vector3(0, arrowStringPosition.localPosition.y, 0);
         return arrowStringPosition.position;
     }
 
@@ -48,12 +49,12 @@ public class Bow : MonoBehaviour
 
     public float GetBowForce()
     {
-        return Mathf.Min(1.0f,(arrowStringPosition.localPosition.y + 0.01075402f) / -(MaxStingRange-0.01075402f));
+        return Mathf.Min(1.0f, (arrowStringPosition.localPosition.y + 0.01075402f) / -(MaxStingRange - 0.01075402f));
     }
 
     public void ResetSting()
     {
-        arrowStringPosition.localPosition = new Vector3(0,-0.01075402f,0);
+        arrowStringPosition.localPosition = new Vector3(0, -0.01075402f, 0);
     }
 
     public void ShotFired()
@@ -63,7 +64,8 @@ public class Bow : MonoBehaviour
 
     public float babadam(float y)
     {
-        float[] myNum = {
+        float[] myNum =
+        {
             -0.01075402f,
             -0.01096038f,
             -0.01180249f,
@@ -75,27 +77,29 @@ public class Bow : MonoBehaviour
             -0.04263402f,
             -0.0542632f,
             -0.06590831f,
-            -0.07389119f};
-        
+            -0.07389119f
+        };
+
         if (y >= myNum[0])
         {
             return 0;
         }
-        
-        for (int i = 0; i < myNum.Length-1; i++)
+
+        for (int i = 0; i < myNum.Length - 1; i++)
         {
             if (y > myNum[i])
             {
-                var f = helper(myNum[i],myNum[i+1],i);
-                
-                return (f/18.0f);
+                var f = helper(myNum[i], myNum[i + 1], i);
+
+                return (f / 18.0f);
             }
         }
-        return 11f/18f;
-        
+
+        return 11f / 18f;
+
         float helper(float lower, float higher, float time)
         {
-            return time +  (lower - y)/ (lower - higher);
+            return time + (lower - y) / (lower - higher);
         }
     }
 }

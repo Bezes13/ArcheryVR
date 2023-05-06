@@ -18,7 +18,7 @@ namespace Unity.Template.VR
         {
             pointsText.text = model.GetPoints().ToString();
             windText.text = model.GetWind().ToString();
-            distance.text = Math.Round(Vector3.Distance(target.transform.position, bow.transform.position)) +" Meter";
+            distance.text = Math.Round(Vector3.Distance(target.transform.position, bow.transform.position)) + " Meter";
         }
     }
 }

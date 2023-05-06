@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
 namespace Unity.Template.VR
