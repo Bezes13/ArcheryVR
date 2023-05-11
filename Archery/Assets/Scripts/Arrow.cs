@@ -9,7 +9,7 @@ public class Arrow : MonoBehaviour
 
     private bool _isGrabbed;
     public bool isAttachedToBow;
-    private bool _fired;
+    public bool fired;
     private ArrowFiredEvent _firedEvent;
 
     private Vector3 s;
@@ -28,7 +28,7 @@ public class Arrow : MonoBehaviour
     private void Update()
     {
         var arrowStringPosition = bow.GetArrowStringPosition();
-        if (_fired)
+        if (fired)
         {
             FlyingArrow();
         }
@@ -46,7 +46,7 @@ public class Arrow : MonoBehaviour
             transform.position = arrowStringPosition + transform.position - stingTransform.position;
         }
 
-        if (_fired)
+        if (fired)
         {
             // update the rotation of the projectile during trajectory motion
         }
@@ -89,20 +89,20 @@ public class Arrow : MonoBehaviour
         v = new Vector3(0, 0, 0);
         a = new Vector3(0, 0, 0);
         _shot = false;
-        _fired = false;
+        fired = false;
     }
 
 
     public void FireArrow()
     {
-        if (!bow.IsBowTensed() || !isAttachedToBow || _shot || _fired)
+        if (!bow.IsBowTensed() || !isAttachedToBow || _shot || fired)
         {
             return;
         }
-
+        
         Debug.Log("Boom");
         isAttachedToBow = false;
-        _fired = true;
+        fired = true;
         _shot = true;
         Vector3 projectorvec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
         Vector3 projectorvecdir = projectorvec.normalized;
@@ -113,7 +113,9 @@ public class Arrow : MonoBehaviour
             StartRotation = startRot,
             Force = bow.GetBowForce()
         };
-
+        // rigid.freezeRotation
+        //rigid.AddForce(projectorvecdir * bow.GetBowForce() * 20f);
+       // rigid.AddExplosionForce();
         a = projectorvecdir * bow.GetBowForce() * 20f;
         s = transform.position;
         v = a;

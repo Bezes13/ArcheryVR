@@ -37,7 +37,7 @@ public class ShatterObject : MonoBehaviour
             item.isKinematic = false;
             filter.mesh = o;
             var _mat = new Material(mat);
-            _mat.SetColor("_Color", Color.HSVToRGB(Random.value, 1, 1));
+            // _mat.SetColor("_Color", Color.HSVToRGB(Random.value, 1, 1));
             meshRenderer.sharedMaterial = _mat;
             objects.Add(item);
         }

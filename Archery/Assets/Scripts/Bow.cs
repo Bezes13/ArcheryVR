@@ -22,7 +22,7 @@ public class Bow : MonoBehaviour
     {
         arrowStringPosition.localPosition =
             new Vector3(0, Mathf.Max(-MaxStingRange, arrowStringPosition.localPosition.y), 0);
-        var value = babadam(arrowStringPosition.localPosition.y);
+        var value = GetStringPosition(arrowStringPosition.localPosition.y);
         _animator.SetFloat("bow", value);
     }
 
@@ -62,15 +62,15 @@ public class Bow : MonoBehaviour
         _animator.SetTrigger("shot");
         foreach (var item in spawner.arrows)
         {
-            if(item.isAttachedToBow){
-                item.FireArrow();
+            if(item.Item1.isAttachedToBow){
+                item.Item1.FireArrow();
             }
         }
     }
 
-    public float babadam(float y)
+    private static float GetStringPosition(float y)
     {
-        float[] myNum =
+        float[] animationValues =
         {
             -0.01075402f,
             -0.01096038f,
@@ -86,16 +86,16 @@ public class Bow : MonoBehaviour
             -0.07389119f
         };
 
-        if (y >= myNum[0])
+        if (y >= animationValues[0])
         {
             return 0;
         }
 
-        for (int i = 0; i < myNum.Length - 1; i++)
+        for (int i = 0; i < animationValues.Length - 1; i++)
         {
-            if (y > myNum[i])
+            if (y > animationValues[i])
             {
-                var f = helper(myNum[i], myNum[i + 1], i);
+                var f = helper(animationValues[i], animationValues[i + 1], i);
 
                 return (f / 18.0f);
             }

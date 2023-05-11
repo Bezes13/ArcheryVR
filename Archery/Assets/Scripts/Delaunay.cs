@@ -23,6 +23,12 @@ public class Delaunay {
         Nodes = new List<DelaunayNode> { new(root) };
 
         // Generate Random Points and add them to Delaunay 
+        for(int i = 0; i< num; i++)
+        {
+            Split(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value); 
+            Leagalize();
+        }
+        /*
         Split(0.94f, 0.73f, 0.29f); 
         Leagalize();
         Split(0.46f, 0.44f, 0.58f); 
@@ -33,6 +39,7 @@ public class Delaunay {
         Leagalize();
         Split(0.67f, 0.97f, 0.57f); 
         Leagalize();
+        */
     }
 
     private void Split(float x, float y, float z)
