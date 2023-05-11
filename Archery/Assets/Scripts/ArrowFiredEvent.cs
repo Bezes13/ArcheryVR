@@ -1,11 +1,8 @@
 using UnityEngine;
 
-namespace Unity.Template.VR
+public struct ArrowFiredEvent
 {
-    public struct ArrowFiredEvent
-    {
-        public Vector3 Direction;
-        public float Force;
-        public Quaternion StartRotation;
-    }
+    public Vector3 Direction;
+    public float Force;
+    public Quaternion StartRotation;
 }

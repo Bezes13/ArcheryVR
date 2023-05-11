@@ -1,26 +1,23 @@
 using UnityEngine;
 
-namespace Unity.Template.VR
+[CreateAssetMenu(fileName = "Model", menuName = "ScriptableObjects/Model", order = 1)]
+public class Model : ScriptableObject
 {
-    [CreateAssetMenu(fileName = "Model", menuName = "ScriptableObjects/Model", order = 1)]
-    public class Model : ScriptableObject
+    private int Points = 0;
+    private Vector3 _windVelocity;
+
+    public void AddPoints(int points)
     {
-        private int Points = 0;
-        private Vector3 _windVelocity;
+        Points += points;
+    }
 
-        public void AddPoints(int points)
-        {
-            Points += points;
-        }
+    public int GetPoints()
+    {
+        return Points;
+    }
 
-        public int GetPoints()
-        {
-            return Points;
-        }
-
-        public Vector3 GetWind()
-        {
-            return _windVelocity;
-        }
+    public Vector3 GetWind()
+    {
+        return _windVelocity;
     }
 }

@@ -1,8 +1,5 @@
-using System;
 using UnityEngine;
-using Unity.Template.VR;
-namespace Unity.Template.VR
-{
+
 public class Bow : MonoBehaviour
 {
     private const float MaxStingRange = 0.0738f;
@@ -63,9 +60,9 @@ public class Bow : MonoBehaviour
     public void ShotFired()
     {
         _animator.SetTrigger("shot");
-        foreach (var item in spawner.arrrows)
+        foreach (var item in spawner.arrows)
         {
-            if(item._isAttachedToBow){
+            if(item.isAttachedToBow){
                 item.FireArrow();
             }
         }
@@ -111,4 +108,4 @@ public class Bow : MonoBehaviour
             return time + (lower - y) / (lower - higher);
         }
     }
-}}
+}

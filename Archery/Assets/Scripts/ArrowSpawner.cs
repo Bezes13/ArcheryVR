@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Template.VR;
-namespace Unity.Template.VR
-{
+
 public class ArrowSpawner : MonoBehaviour
 {
     [SerializeField] private List<Transform> positions;
@@ -25,4 +23,4 @@ public class ArrowSpawner : MonoBehaviour
     {
         
     }
-}}
+}
