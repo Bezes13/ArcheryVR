@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
-
+using Unity.Template.VR;
+namespace Unity.Template.VR
+{
 public class Bow : MonoBehaviour
 {
     private const float MaxStingRange = 0.0738f;
@@ -10,6 +12,7 @@ public class Bow : MonoBehaviour
 
     [SerializeField] private Transform arrowStringPosition;
     [SerializeField] private Transform arrowWoodPosition;
+    [SerializeField] private ArrowSpawner spawner;
 
     void Start()
     {
@@ -49,7 +52,7 @@ public class Bow : MonoBehaviour
 
     public float GetBowForce()
     {
-        return Mathf.Min(1.0f, (arrowStringPosition.localPosition.y + 0.01075402f) / -(MaxStingRange - 0.01075402f));
+        return Mathf.Max(0, Mathf.Min(1.0f, (arrowStringPosition.localPosition.y + 0.01075402f) / -(MaxStingRange - 0.01075402f)));
     }
 
     public void ResetSting()
@@ -60,6 +63,12 @@ public class Bow : MonoBehaviour
     public void ShotFired()
     {
         _animator.SetTrigger("shot");
+        foreach (var item in spawner.arrrows)
+        {
+            if(item._isAttachedToBow){
+                item.FireArrow();
+            }
+        }
     }
 
     public float babadam(float y)
@@ -102,4 +111,4 @@ public class Bow : MonoBehaviour
             return time + (lower - y) / (lower - higher);
         }
     }
-}
+}}

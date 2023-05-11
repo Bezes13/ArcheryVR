@@ -7,14 +7,19 @@ public class Delaunay {
     private readonly Stack<Triangle> _stack;
     public List<DelaunayNode> Nodes { get; }
 
+    private Vector3 offset;
+    private float scl;
+
     public Delaunay(int num, float scl, GameObject target) {
         _stack = new Stack<Triangle>();
         // The tetrahedra which contains the object
+        offset = target.transform.position;
+        this.scl = scl;
         var root  = new Tetrahedra(
-            Vector3.zero,
-            new Vector3(scl * 3, 0, 0),
-            new Vector3(0, scl * 3, 0),
-            new Vector3(0, 0, scl * 3));
+            Vector3.zero + offset,
+            new Vector3(scl * 3, 0, 0)+ offset,
+            new Vector3(0, scl * 3, 0)+ offset,
+            new Vector3(0, 0, scl * 3)+ offset);
         Nodes = new List<DelaunayNode> { new(root) };
 
         // Generate Random Points and add them to Delaunay 
@@ -32,7 +37,7 @@ public class Delaunay {
 
     private void Split(float x, float y, float z)
     {
-        var p = new Vector3(x, y, z);
+        var p = new Vector3(x, y, z)*scl + offset;
         var n = Nodes.Find(tetra => tetra.Tetrahedra.Contains(p, true));
         var o = n.Split(p);
         Nodes.Remove(n);

@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using Unity.Template.VR;
 using UnityEngine;
-
+namespace Unity.Template.VR
+{
 public class ShatterObject : MonoBehaviour
 {
         [SerializeField] protected PhysicMaterial phy;
@@ -7,8 +10,10 @@ public class ShatterObject : MonoBehaviour
         [SerializeField] protected GameObject tgt;
         [SerializeField] protected int num;
         [SerializeField, Range(0.1f, 10f)] float scale = 1f;
+        [SerializeField, Range(1, 10)] int points = 1;
+        private List<Rigidbody> objects = new List<Rigidbody>();
 
-        void Start() {
+        void Break() {
             var stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
 
@@ -30,12 +35,13 @@ public class ShatterObject : MonoBehaviour
                 meshCollider.sharedMaterial = phy;
                 meshCollider.sharedMesh = o;
                 item.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-                item.useGravity = false;
-                item.isKinematic = true;
+                item.useGravity = true;
+                item.isKinematic = false;
                 filter.mesh = o;
                 var _mat = new Material(mat);
                 _mat.SetColor("_Color", Color.HSVToRGB(Random.value, 1, 1));
                 meshRenderer.sharedMaterial = _mat;
+                objects.Add(item);
             }
 
             stopwatch.Stop();
@@ -50,4 +56,18 @@ public class ShatterObject : MonoBehaviour
             for (var i = 0; i < l; i++) d[i] = new MeshCreater.Polygon(src[i]);
             return d;
         }
+
+        private void OnTriggerEnter(Collider other) {
+            Debug.Log("koll");
+            var obj = other.gameObject.GetComponent<Arrow>();
+            
+            if(obj != null){
+               Break();
+            }
+        }
+
+        public int GetPoints(){
+            return points;
+        }
+}
 }

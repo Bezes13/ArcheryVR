@@ -1,4 +1,5 @@
 using System;
+using Unity.Template.VR;
 using UnityEngine;
 
 namespace Unity.Template.VR
@@ -77,7 +78,8 @@ namespace Unity.Template.VR
 
         private void OnTriggerEnter(Collider other)
         {
-            Target target = other.gameObject.GetComponent<Target>();
+            ShatterObject target = other.gameObject.GetComponent<ShatterObject>();
+
             if (target == null)
             {
                 return;
@@ -86,7 +88,7 @@ namespace Unity.Template.VR
 
             Debug.LogWarning("heurica");
             Vector3 hit = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-            model.AddPoints(target.GetPoints(hit));
+            model.AddPoints(target.GetPoints());
             Debug.Log(model.GetPoints());
             v = new Vector3(0, 0, 0);
             a = new Vector3(0, 0, 0);
@@ -116,7 +118,7 @@ namespace Unity.Template.VR
                 Force = bow.GetBowForce()
             };
 
-            a = projectorvecdir * 10f;
+            a = projectorvecdir * bow.GetBowForce() * 20f;
             s = transform.position;
             v = a;
 

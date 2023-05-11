@@ -6,6 +6,19 @@ using Vector3 = UnityEngine.Vector3;
 
 public static class MeshCreater
 {
+
+    public static Polygon[] Union( Polygon[] first, Polygon[] second){
+            var tn = new Node(new List<Polygon>(first));
+            var pn = new Node(new List<Polygon> (second));
+            tn.ClipTo(pn);
+            pn.ClipTo(tn);
+            pn.Invert();
+            pn.ClipTo(tn);
+            pn.Invert();
+            tn.Build(pn.GetPolygonData());
+            return tn.GetPolygonData().ToArray();
+    }
+
     public static Polygon[] Intersection(Polygon[] first, Polygon[] second)
     {
         var tn = new Node(new List<Polygon>(first));
