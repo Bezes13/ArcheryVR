@@ -44,7 +44,8 @@ public class Delaunay {
 
     private void Split(float x, float y, float z)
     {
-        var p = new Vector3(x, y, z)*scl + offset;
+        var p = new Vector3(x, y, z) * scl + offset;
+        Debug.Log(p);
         var n = Nodes.Find(tetra => tetra.Tetrahedra.Contains(p, true));
         var o = n.Split(p);
         Nodes.Remove(n);

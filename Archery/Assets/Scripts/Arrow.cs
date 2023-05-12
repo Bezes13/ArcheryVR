@@ -23,6 +23,9 @@ public class Arrow : MonoBehaviour
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
+        bow =  Object.FindObjectOfType<Bow>();
+        Physics.IgnoreCollision(bow.GetComponent<Collider>(), this.GetComponent<Collider>());
+        Physics.IgnoreCollision(Object.FindObjectOfType<Sting>().GetComponent<Collider>(), this.GetComponent<Collider>());
     }
 
     private void Update()
@@ -59,7 +62,7 @@ public class Arrow : MonoBehaviour
         s = Time.deltaTime * v + s;
         a = new Vector3(0, -9.81f, 0);
 
-        transform.position = s;
+        //transform.position = s;
     }
 
     public void Grab()
@@ -114,7 +117,7 @@ public class Arrow : MonoBehaviour
             Force = bow.GetBowForce()
         };
         // rigid.freezeRotation
-        //rigid.AddForce(projectorvecdir * bow.GetBowForce() * 20f);
+        rigid.velocity = projectorvecdir * bow.GetBowForce() * 20f;
        // rigid.AddExplosionForce();
         a = projectorvecdir * bow.GetBowForce() * 20f;
         s = transform.position;

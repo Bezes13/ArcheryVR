@@ -23,18 +23,22 @@ public class ArrowSpawner : MonoBehaviour
     void Update()
     {
         (Arrow, Transform) delete = (null, null);
+        Arrow newOne = null;
         foreach(var (arrow, trans) in arrows)
         {
             if (arrow.fired)
             {
-                Instantiate(prefab, trans);
+                newOne = Instantiate(prefab, trans);
+                newOne.gameObject.SetActive(true);
                 delete = (arrow, trans);
+                
             }
         }
 
         if (delete.Item1 != null)
         {
             arrows.Remove(delete);
+            arrows.Add((newOne, delete.Item2));
         }
     }
 }

@@ -34,7 +34,7 @@ public class ShatterObject : MonoBehaviour
             meshCollider.sharedMesh = o;
             item.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             item.useGravity = true;
-            item.isKinematic = false;
+            item.isKinematic = true;
             filter.mesh = o;
             var _mat = new Material(mat);
             // _mat.SetColor("_Color", Color.HSVToRGB(Random.value, 1, 1));
