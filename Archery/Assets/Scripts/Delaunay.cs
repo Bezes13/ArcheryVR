@@ -21,30 +21,20 @@ public class Delaunay {
             new Vector3(0, scl * 3, 0)+ offset,
             new Vector3(0, 0, scl * 3)+ offset);
         Nodes = new List<DelaunayNode> { new(root) };
-
+        Debug.Log(target.transform.localScale.x);
         // Generate Random Points and add them to Delaunay 
         for(int i = 0; i< num; i++)
         {
-            Split(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value); 
+            var p = new Vector3(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
+            p = target.GetComponent<MeshFilter>().mesh.bounds.ClosestPoint(p);
+            Split(p*target.transform.localScale.x); 
             Leagalize();
         }
-        /*
-        Split(0.94f, 0.73f, 0.29f); 
-        Leagalize();
-        Split(0.46f, 0.44f, 0.58f); 
-        Leagalize();
-        Split(0.77f, 0.43f, 0.03f); 
-        Leagalize();
-        Split(0.01f, 0.23f, 0.35f); 
-        Leagalize();
-        Split(0.67f, 0.97f, 0.57f); 
-        Leagalize();
-        */
     }
 
-    private void Split(float x, float y, float z)
+    private void Split(Vector3 p)
     {
-        var p = new Vector3(x, y, z) * scl + offset;
+        p = p * scl + offset;
         Debug.Log(p);
         var n = Nodes.Find(tetra => tetra.Tetrahedra.Contains(p, true));
         var o = n.Split(p);

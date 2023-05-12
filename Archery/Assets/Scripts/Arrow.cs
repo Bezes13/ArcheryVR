@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    private const float ArrowStingOffset = 0.05f;
+     [SerializeField] private const float ArrowStingOffset = 0.15f;
 
     [SerializeField] private Transform stingTransform;
     [SerializeField] private Bow bow;
@@ -84,11 +84,8 @@ public class Arrow : MonoBehaviour
             return;
         }
 
-
-        Debug.LogWarning("heurica");
         Vector3 hit = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
         model.AddPoints(target.GetPoints());
-        Debug.Log(model.GetPoints());
         v = new Vector3(0, 0, 0);
         a = new Vector3(0, 0, 0);
         _shot = false;

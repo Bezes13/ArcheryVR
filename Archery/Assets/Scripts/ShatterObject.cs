@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ShatterObject : MonoBehaviour
 {
@@ -12,9 +13,6 @@ public class ShatterObject : MonoBehaviour
     private List<Rigidbody> objects = new List<Rigidbody>();
 
     void Break() {
-        var stopwatch = new System.Diagnostics.Stopwatch();
-        stopwatch.Start();
-
         var delaunay = new Delaunay(num, scale, tgt);
         var voronoi = new VoronoiGraph(delaunay.Nodes.ToArray());
         var tree = MeshCreater.GenCsgTree(tgt.transform);
@@ -34,16 +32,12 @@ public class ShatterObject : MonoBehaviour
             meshCollider.sharedMesh = o;
             item.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             item.useGravity = true;
-            item.isKinematic = true;
+            item.isKinematic = false;
             filter.mesh = o;
             var _mat = new Material(mat);
-            // _mat.SetColor("_Color", Color.HSVToRGB(Random.value, 1, 1));
             meshRenderer.sharedMaterial = _mat;
             objects.Add(item);
         }
-
-        stopwatch.Stop();
-        Debug.Log("generate csg: " + stopwatch.ElapsedMilliseconds + "ms");
         tgt.SetActive(false);
     }
 
@@ -56,7 +50,6 @@ public class ShatterObject : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("koll");
         var obj = other.gameObject.GetComponent<Arrow>();
             
         if(obj != null){
@@ -65,6 +58,7 @@ public class ShatterObject : MonoBehaviour
     }
 
     public int GetPoints(){
-        return points;
+        Bow bow =  UnityEngine.Object.FindObjectOfType<Bow>();
+        return (int) Math.Round(Vector3.Distance(transform.position, bow.transform.position));
     }
 }
