@@ -151,7 +151,7 @@ public static class MeshCreater
     }
     
     public static Polygon[] GenCsgTree(Transform t, bool isFragmented = false) {
-        var matrix = Matrix4x4.TRS(t.position, t.rotation, t.localScale);
+        var matrix = Matrix4x4.TRS(Vector3.zero, t.rotation, t.localScale);
         var mesh = t.GetComponent<MeshFilter>().sharedMesh;
         return GenCsgTree(matrix, mesh, isFragmented);
     }

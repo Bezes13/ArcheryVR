@@ -13,8 +13,9 @@ public class Delaunay {
     public Delaunay(int num, float scl, GameObject target) {
         _stack = new Stack<Triangle>();
         // The tetrahedra which contains the object
-        offset = target.transform.position;
-        this.scl = scl;
+        // offset = target.transform.position;
+        offset = Vector3.zero;
+        this.scl = 1;
         var root  = new Tetrahedra(
             Vector3.zero + offset,
             new Vector3(scl * 3, 0, 0)+ offset,
@@ -25,9 +26,10 @@ public class Delaunay {
         // Generate Random Points and add them to Delaunay 
         for(int i = 0; i< num; i++)
         {
-            var p = new Vector3(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
-            p = target.GetComponent<MeshFilter>().mesh.bounds.ClosestPoint(p);
-            Split(p*target.transform.localScale.x); 
+            var p = new Vector3(UnityEngine.Random.value*scl, UnityEngine.Random.value*scl, UnityEngine.Random.value*scl);
+            //p = target.GetComponent<MeshFilter>().mesh.bounds.ClosestPoint(p);
+            // Split(p*target.transform.localScale.x); 
+            Split(p); 
             Leagalize();
         }
     }

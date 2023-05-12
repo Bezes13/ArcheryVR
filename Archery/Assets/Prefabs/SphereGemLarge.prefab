@@ -276,7 +276,7 @@ MonoBehaviour:
   mat: {fileID: 2100000, guid: e95c781da52e2d14fb2fba44d7476164, type: 2}
   tgt: {fileID: 1810246318115314538}
   num: 5
-  scale: 1
+  scale: 0.4
   points: 1
 --- !u!1 &3024063750218111957
 GameObject:

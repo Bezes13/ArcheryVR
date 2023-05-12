@@ -15,11 +15,11 @@ public class ShatterObject : MonoBehaviour
     void Break() {
         var delaunay = new Delaunay(num, scale, tgt);
         var voronoi = new VoronoiGraph(delaunay.Nodes.ToArray());
-        var tree = MeshCreater.GenCsgTree(tgt.transform);
+        var realMesh = MeshCreater.GenCsgTree(tgt.transform);
 
         foreach (var node in voronoi.nodes) {
             var mesh = node.Value.Meshilify();
-            var t1 = Clone(tree);
+            var t1 = Clone(realMesh);
             var t2 = MeshCreater.GenCsgTree(Matrix4x4.TRS(node.Value.center * 1.01f, Quaternion.identity, Vector3.one), mesh, true);
             var o = MeshCreater.Meshing(MeshCreater.Intersection(t1, t2));
             var g = new GameObject();
@@ -36,6 +36,7 @@ public class ShatterObject : MonoBehaviour
             filter.mesh = o;
             var _mat = new Material(mat);
             meshRenderer.sharedMaterial = _mat;
+            item.gameObject.transform.position += tgt.transform.position;
             objects.Add(item);
         }
         tgt.SetActive(false);
