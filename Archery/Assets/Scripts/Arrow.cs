@@ -1,9 +1,8 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [SerializeField] private const float ArrowStingOffset = 0.15f;
+     [SerializeField] private const float ArrowStingOffset = 0.15f;
     [SerializeField] private Transform stingTransform;
     [SerializeField] private Bow bow;
 
@@ -35,8 +34,10 @@ public class Arrow : MonoBehaviour
         var arrowStringPosition = bow.GetArrowStringPosition();
         if (fired)
         {
-            transform.Rotate(lastVel-rigid.velocity);
+            //var rot = lastVel-rigid.velocity;
+            //transform.Rotate(new Vector3(rot.x, 0, rot.z));
             FlyingArrow();
+            rigid.freezeRotation = false;
         }
 
         if (_isGrabbed && Vector3.Distance(stingTransform.position, arrowStringPosition) <= ArrowStingOffset)
@@ -118,7 +119,7 @@ public class Arrow : MonoBehaviour
         };
         rigid.freezeRotation = true;
         rigid.velocity = projectorvecdir * bow.GetBowForce() * 20f;
-        lastVel = projectorvecdir * bow.GetBowForce() * 20f;
+        //lastVel = projectorvecdir * bow.GetBowForce() * 20f;
         //rigid.acceleration = model.GetWind();
        // rigid.AddExplosionForce();
         a = projectorvecdir * bow.GetBowForce() * 20f;
