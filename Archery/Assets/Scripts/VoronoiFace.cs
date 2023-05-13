@@ -2,16 +2,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VoronoiFace {
+public class VoronoiFace
+{
     public Vector3 Key { get; }
     public List<Vector3> Vertices;
 
-    public VoronoiFace(Vector3 key) {
+    public VoronoiFace(Vector3 key)
+    {
         Key = key;
         Vertices = new List<Vector3>();
     }
 
-    public void TryAddVertices(Segment s, Vector3 center){
+    public void TryAddVertices(Segment s, Vector3 center)
+    {
         var f1 = false;
         var f2 = false;
         foreach (var v in Vertices)
@@ -39,10 +42,11 @@ public class VoronoiFace {
     }
 
 
-    public Vector3[] Meshilify() {
+    public Vector3[] Meshilify()
+    {
         var v0 = Vertices[0];
         var v1 = Vertices[1];
-        var o  = new Vector3[(Vertices.Count - 2) * 3];
+        var o = new Vector3[(Vertices.Count - 2) * 3];
 
         Vertices = Vertices.Skip(2)
             .OrderBy(v => UnityEngine.Vector3.Dot(v0 - v1, Vector3.Normalize(v - v1)))
@@ -50,15 +54,16 @@ public class VoronoiFace {
             .Prepend(v0)
             .ToList();
 
-        for (var i = 1; i < Vertices.Count - 1; i++) {
+        for (var i = 1; i < Vertices.Count - 1; i++)
+        {
             var va = Vertices[i];
             var vb = Vertices[i + 1];
-            var f  = UnityEngine.Vector3.Dot(Vector3.Cross(vb - va, v0 - va), v0) > 0;
+            var f = UnityEngine.Vector3.Dot(Vector3.Cross(vb - va, v0 - va), v0) > 0;
             o[(i - 1) * 3 + 0] = v0;
             o[(i - 1) * 3 + 1] = f ? va : vb;
             o[(i - 1) * 3 + 2] = f ? vb : va;
         }
+
         return o;
     }
-
 }

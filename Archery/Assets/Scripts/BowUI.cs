@@ -12,12 +12,15 @@ public class BowUI : MonoBehaviour
     private void Update()
     {
         power.text = Math.Round(100 * bow.GetBowForce()).ToString();
-        Vector3 projectorvec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
-        Vector3 projectorvecdir = projectorvec.normalized;
-        if( bow.GetArrowWoodPosition().y < bow.GetArrowStringPosition().y){
+        Vector3 projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
+        Vector3 projectorVecNorm = projectorVec.normalized;
+        if (bow.GetArrowWoodPosition().y < bow.GetArrowStringPosition().y)
+        {
             angle.text = "-";
         }
+
         angle.text = (bow.GetArrowWoodPosition().y < bow.GetArrowStringPosition().y ? "-" : "") +
-                     Math.Round(Vector3.Angle(projectorvecdir, new Vector3(projectorvecdir.x, 0, projectorvecdir.z))) + "°";
+                     Math.Round(Vector3.Angle(projectorVecNorm, new Vector3(projectorVecNorm.x, 0, projectorVecNorm.z))) +
+                     "°";
     }
 }

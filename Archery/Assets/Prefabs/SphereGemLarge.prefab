@@ -93,14 +93,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.5
+  m_fontSize: 47
   m_fontSizeBase: 46.5
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -14.599205, y: 0, z: 164.11005, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -354,13 +354,14 @@ MonoBehaviour:
   phy: {fileID: 13400000, guid: c7f7ab928ee6645a7bdc1f8a330b8ea2, type: 2}
   starExplosion: {fileID: 5585671604984661011, guid: c8024b1c8dba5ac45ac354c95aaf3221,
     type: 3}
-  audioSource: {fileID: 613037101634727382}
   deadSound: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   mat: {fileID: 2100000, guid: 5a9e6cf91cbfc1a4fbc9470cca37b97a, type: 2}
   tgt: {fileID: 1810246318115314538}
   num: 5
   scale: 0.4
-  points: 1
+  points: 0
+  distance: {fileID: 5140280784736966962}
+  objects: []
 --- !u!82 &613037101634727382
 AudioSource:
   m_ObjectHideFlags: 0
@@ -469,7 +470,6 @@ GameObject:
   - component: {fileID: 907945320835114304}
   - component: {fileID: 788234861796890326}
   - component: {fileID: 8788863455654074917}
-  - component: {fileID: 6174283157626819732}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -559,20 +559,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6174283157626819732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3024063750218111957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69146c1ce53c4df289a029b8268cadb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: {fileID: 5140280784736966962}
-  bow: {fileID: 0}
 --- !u!1001 &2406984940481694520
 PrefabInstance:
   m_ObjectHideFlags: 0

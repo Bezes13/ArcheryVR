@@ -2,16 +2,20 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VoronoiNode {
+public class VoronoiNode
+{
     public Vector3 center;
     public List<(Segment sg, Vector3 pair)> Segments;
     private List<VoronoiFace> _faces;
 
-    public VoronoiNode(Vector3 c) {
+    public VoronoiNode(Vector3 c)
+    {
         center = c;
         Segments = new List<(Segment, Vector3)>();
     }
-    public Mesh Meshilify() {
+
+    public Mesh Meshilify()
+    {
         _faces = Segments.Select(s => s.pair)
             .Distinct()
             .Select(p => new VoronoiFace(p))
@@ -29,7 +33,7 @@ public class VoronoiNode {
                 }
             }
         }
-           
+
         var nums = 0;
         var verts = new List<Vector3>();
 

@@ -6,17 +6,17 @@ using Vector3 = UnityEngine.Vector3;
 
 public static class MeshCreater
 {
-
-    public static Polygon[] Union( Polygon[] first, Polygon[] second){
-            var tn = new Node(new List<Polygon>(first));
-            var pn = new Node(new List<Polygon> (second));
-            tn.ClipTo(pn);
-            pn.ClipTo(tn);
-            pn.Invert();
-            pn.ClipTo(tn);
-            pn.Invert();
-            tn.Build(pn.GetPolygonData());
-            return tn.GetPolygonData().ToArray();
+    public static Polygon[] Union(Polygon[] first, Polygon[] second)
+    {
+        var tn = new Node(new List<Polygon>(first));
+        var pn = new Node(new List<Polygon>(second));
+        tn.ClipTo(pn);
+        pn.ClipTo(tn);
+        pn.Invert();
+        pn.ClipTo(tn);
+        pn.Invert();
+        tn.Build(pn.GetPolygonData());
+        return tn.GetPolygonData().ToArray();
     }
 
     public static Polygon[] Intersection(Polygon[] first, Polygon[] second)
@@ -35,8 +35,8 @@ public static class MeshCreater
 
     public class Plane
     {
-        public Vector3 n { get; private set; }
-        public double w { get; private set; }
+        public Vector3 N { get; private set; }
+        private double W { get; set; }
 
         static readonly double EPSILON = 1e-5d;
         static readonly int ONPLANE = 0;
@@ -46,31 +46,32 @@ public static class MeshCreater
 
         public Plane(Plane src)
         {
-            n = src.n;
-            w = src.w;
+            N = src.N;
+            W = src.W;
         }
 
         public Plane(Vector3 a, Vector3 b, Vector3 c)
         {
-            n = Vector3.Normalize(Vector3.Cross(b - a, c - a));
-            w = Vector3.Dot(n, a);
+            N = Vector3.Normalize(Vector3.Cross(b - a, c - a));
+            W = Vector3.Dot(N, a);
         }
 
         public void Flip()
         {
-            n *= -1;
-            w *= -1;
+            N *= -1;
+            W *= -1;
         }
 
         int GetType(Vector3 p)
         {
-            var v = Vector3.Dot(n, p) - w;
+            var v = Vector3.Dot(N, p) - W;
             var isNearPlane = Math.Abs(v) < EPSILON;
             var isFacingSide = v > 0;
             if (isNearPlane)
             {
                 return ONPLANE;
             }
+
             return isFacingSide ? FACE : BACK;
         }
 
@@ -90,7 +91,7 @@ public static class MeshCreater
             switch (pType)
             {
                 default: throw new Exception();
-                case 0: return (Vector3.Dot(n, p.Plane.n) > 0) ? (p, null, null, null) : (null, p, null, null);
+                case 0: return (Vector3.Dot(N, p.Plane.N) > 0) ? (p, null, null, null) : (null, p, null, null);
                 case 1: return (null, null, p, null);
                 case 2: return (null, null, null, p);
                 case 3:
@@ -114,8 +115,8 @@ public static class MeshCreater
 
                         if ((si | sj) == SPAN)
                         {
-                            var t = (w - Vector3.Dot(n, vi)) / Vector3.Dot(n, vj - vi);
-                            var v = Vector3.Lerp(vi, vj, (float)t);
+                            var t = (W - Vector3.Dot(N, vi)) / Vector3.Dot(N, vj - vi);
+                            var v = Vector3.Lerp(vi, vj, (float) t);
                             faces.Add(v);
                             backs.Add(v);
                         }
@@ -149,42 +150,51 @@ public static class MeshCreater
             Array.Reverse(Verts);
         }
     }
-    
-    public static Polygon[] GenCsgTree(Transform t, bool isFragmented = false) {
+
+    public static Polygon[] GenCsgTree(Transform t, bool isFragmented = false)
+    {
         var matrix = Matrix4x4.TRS(Vector3.zero, t.rotation, t.localScale);
         var mesh = t.GetComponent<MeshFilter>().sharedMesh;
         return GenCsgTree(matrix, mesh, isFragmented);
     }
-    public static Polygon[] GenCsgTree(Matrix4x4 mtx, Mesh msh, bool isFragmented = false) {
+
+    public static Polygon[] GenCsgTree(Matrix4x4 mtx, Mesh msh, bool isFragmented = false)
+    {
         var vertices = new List<Vector3>();
         var normals = new List<Vector3>();
-        if (isFragmented) {
+        if (isFragmented)
+        {
             msh.GetVertices(vertices);
             msh.GetNormals(normals);
-        } else {
+        }
+        else
+        {
             Fragmentize(msh, out vertices, out normals);
         }
 
         var verts = new (Vector3 pos, Vector3 nrm)[vertices.Count];
         var polys = new Polygon[vertices.Count / 3];
 
-        for (var i = 0; i < verts.Length; i++) 
+        for (var i = 0; i < verts.Length; i++)
             verts[i] = (mtx.MultiplyPoint(vertices[i]), mtx.rotation * normals[i]);
 
-        for (var i = 0; i < polys.Length; i++) {
+        for (var i = 0; i < polys.Length; i++)
+        {
             var (a, nrm) = verts[i * 3 + 0];
             var (b, _) = verts[i * 3 + 1];
             var (c, _) = verts[i * 3 + 2];
             var crs = Vector3.Cross(b - a, c - a);
-            if (Vector3.Dot(crs, nrm) > 0) 
-                polys[i] = new MeshCreater.Polygon(new[] { a, b, c });
+            if (Vector3.Dot(crs, nrm) > 0)
+                polys[i] = new Polygon(new[] {a, b, c});
             else
-                polys[i] = new MeshCreater.Polygon(new[] { a, c, b });
+                polys[i] = new Polygon(new[] {a, c, b});
         }
+
         return polys;
     }
 
-    public static Mesh Meshing(Polygon[] tree){
+    public static Mesh Meshing(Polygon[] tree)
+    {
         var vs = new List<Vector3>();
         var ns = new List<Vector3>();
         var dst = new Mesh
@@ -194,8 +204,9 @@ public static class MeshCreater
         var num = 0;
         foreach (var p in tree)
         {
-            for (var i = 3; i <= p.Verts.Length; i++) {
-                var n = p.Plane.n;
+            for (var i = 3; i <= p.Verts.Length; i++)
+            {
+                var n = p.Plane.N;
                 vs.Add(p.Verts[0]);
                 vs.Add(p.Verts[i - 2]);
                 vs.Add(p.Verts[i - 1]);
@@ -205,6 +216,7 @@ public static class MeshCreater
                 num += 3;
             }
         }
+
         dst.SetVertices(vs);
         dst.SetNormals(ns);
         dst.SetTriangles(Enumerable.Range(0, num).ToArray(), 0);
@@ -213,15 +225,18 @@ public static class MeshCreater
         return dst;
     }
 
-    static void Fragmentize(Mesh src, out List<Vector3> outVertices, out List<Vector3> outNormals) {
+    static void Fragmentize(Mesh src, out List<Vector3> outVertices, out List<Vector3> outNormals)
+    {
         // Get vertices and normals from Mesh
         var triangles = src.triangles;
         var vertices = new Vector3[triangles.Length];
         var normals = new Vector3[triangles.Length];
-        for (var i = 0; i < triangles.Length; i++) {
+        for (var i = 0; i < triangles.Length; i++)
+        {
             vertices[i] = src.vertices[triangles[i]];
             normals[i] = src.normals[triangles[i]];
         }
+
         outVertices = vertices.ToList();
         outNormals = normals.ToList();
     }
@@ -250,6 +265,7 @@ public static class MeshCreater
             {
                 t.Flip();
             }
+
             _pl?.Flip();
             _nf?.Invert();
             _nb?.Invert();

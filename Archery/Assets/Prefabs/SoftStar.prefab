@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 5+1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -93,14 +93,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.5
+  m_fontSize: 44.45
   m_fontSizeBase: 46.5
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -14.421013, y: 0, z: 166.32466, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -277,13 +277,14 @@ MonoBehaviour:
   phy: {fileID: 13400000, guid: c7f7ab928ee6645a7bdc1f8a330b8ea2, type: 2}
   starExplosion: {fileID: 5585671604984661011, guid: c8024b1c8dba5ac45ac354c95aaf3221,
     type: 3}
-  audioSource: {fileID: 634678825802979639}
   deadSound: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   mat: {fileID: 2100000, guid: 5a9e6cf91cbfc1a4fbc9470cca37b97a, type: 2}
   tgt: {fileID: 3612569526665906036}
   num: 5
   scale: 0.2
-  points: 5
+  points: 3
+  distance: {fileID: 5816758300222333452}
+  objects: []
 --- !u!82 &634678825802979639
 AudioSource:
   m_ObjectHideFlags: 0
@@ -392,7 +393,6 @@ GameObject:
   - component: {fileID: 2838499353771894164}
   - component: {fileID: 2665030491265975553}
   - component: {fileID: 2854910431456034763}
-  - component: {fileID: 1188605807692472300}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -482,20 +482,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1188605807692472300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4137947367204212998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69146c1ce53c4df289a029b8268cadb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: {fileID: 5816758300222333452}
-  bow: {fileID: 0}
 --- !u!1 &7902811855035956291
 GameObject:
   m_ObjectHideFlags: 0

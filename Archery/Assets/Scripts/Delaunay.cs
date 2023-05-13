@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Delaunay {
+public class Delaunay
+{
     public const float Threshold = 0.0001f;
     private readonly Stack<Triangle> _stack;
     public List<DelaunayNode> Nodes { get; }
@@ -10,26 +11,28 @@ public class Delaunay {
     private Vector3 offset;
     private float scl;
 
-    public Delaunay(int num, float scl, GameObject target) {
+    public Delaunay(int num, float scl, GameObject target)
+    {
         _stack = new Stack<Triangle>();
         // The tetrahedra which contains the object
         // offset = target.transform.position;
         offset = Vector3.zero;
         this.scl = 1;
-        var root  = new Tetrahedra(
+        var root = new Tetrahedra(
             Vector3.zero + offset,
-            new Vector3(scl * 3, 0, 0)+ offset,
-            new Vector3(0, scl * 3, 0)+ offset,
-            new Vector3(0, 0, scl * 3)+ offset);
-        Nodes = new List<DelaunayNode> { new(root) };
+            new Vector3(scl * 3, 0, 0) + offset,
+            new Vector3(0, scl * 3, 0) + offset,
+            new Vector3(0, 0, scl * 3) + offset);
+        Nodes = new List<DelaunayNode> {new(root)};
         Debug.Log(target.transform.localScale.x);
         // Generate Random Points and add them to Delaunay 
-        for(int i = 0; i< num; i++)
+        for (var i = 0; i < num; i++)
         {
-            var p = new Vector3(UnityEngine.Random.value*scl, UnityEngine.Random.value*scl, UnityEngine.Random.value*scl);
+            var p = new Vector3(UnityEngine.Random.value * scl, UnityEngine.Random.value * scl,
+                UnityEngine.Random.value * scl);
             //p = target.GetComponent<MeshFilter>().mesh.bounds.ClosestPoint(p);
             // Split(p*target.transform.localScale.x); 
-            Split(p); 
+            Split(p);
             Leagalize();
         }
     }
@@ -51,9 +54,11 @@ public class Delaunay {
         _stack.Push(o.t4);
     }
 
-    void Leagalize() {
+    void Leagalize()
+    {
         // Go through the new added tetras
-        while (_stack.Count > 0) {
+        while (_stack.Count > 0)
+        {
             var t = _stack.Pop();
             // Find tetras which contain the triangle face
             if (!FindNodes(t, out DelaunayNode n1, out DelaunayNode n2)) continue;
@@ -66,7 +71,8 @@ public class Delaunay {
             //      else find Intersecting Point
             //          do flip on other things
             if (!n1.Tetrahedra.GetCircumscribedSphere().Contains(p2)) continue;
-            if (t.Intersects(new Segment(p1, p2), out Vector3 i, out var onEdge)) {
+            if (t.Intersects(new Segment(p1, p2), out Vector3 i, out var onEdge))
+            {
                 var o = DelaunayNode.Flip23(n1, n2, p1, p2, t);
                 _stack.Push(o.t1);
                 _stack.Push(o.t2);
@@ -79,10 +85,15 @@ public class Delaunay {
                 Nodes.Add(o.n1);
                 Nodes.Add(o.n2);
                 Nodes.Add(o.n3);
-            } else if (onEdge) { Debug.LogWarning("point is on edge");
-            } else {
+            }
+            else if (onEdge)
+            {
+                Debug.LogWarning("point is on edge");
+            }
+            else
+            {
                 Vector3 far;
-                if      (IsIntersecting(new Segment(i, t.a), new Segment(t.b, t.c))) far = t.a;
+                if (IsIntersecting(new Segment(i, t.a), new Segment(t.b, t.c))) far = t.a;
                 else if (IsIntersecting(new Segment(i, t.b), new Segment(t.c, t.a))) far = t.b;
                 else if (IsIntersecting(new Segment(i, t.c), new Segment(t.a, t.b))) far = t.c;
                 else throw new Exception();
@@ -112,7 +123,8 @@ public class Delaunay {
         }
     }
 
-    private static bool IsIntersecting(Segment e1, Segment e2) {
+    private static bool IsIntersecting(Segment e1, Segment e2)
+    {
         var v1 = e1.b - e1.a;
         var v2 = e2.b - e2.a;
         var n1 = Vector3.Normalize(v1);
@@ -122,8 +134,8 @@ public class Delaunay {
         var r = e1.a - e2.a;
         var rho = Vector3.Dot(r, n1 - alpha * n2) / (alpha * alpha - 1d);
         var tau = Vector3.Dot(r, alpha * n1 - n2) / (alpha * alpha - 1d);
-        var pos1 = e1.a + (float)rho * n1;
-        var pos2 = e2.a + (float)tau * n2;
+        var pos1 = e1.a + (float) rho * n1;
+        var pos2 = e2.a + (float) tau * n2;
         var f1 = Vector3.SqrMagnitude(pos1 - pos2) < Threshold;
 
         rho /= Vector3.Magnitude(v1);
@@ -132,12 +144,13 @@ public class Delaunay {
         return f1 && f2;
     }
 
-    bool FindNodes(Triangle t, out DelaunayNode n1, out DelaunayNode n2) {
+    bool FindNodes(Triangle t, out DelaunayNode n1, out DelaunayNode n2)
+    {
         var o = Nodes.FindAll(n => n.HasFacet(t));
         if (o.Count == 2)
         {
             n1 = o[0];
-            n2 = o[1]; 
+            n2 = o[1];
             return true;
         }
 

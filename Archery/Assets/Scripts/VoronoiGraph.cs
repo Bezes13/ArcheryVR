@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VoronoiGraph {
+public class VoronoiGraph
+{
     public Dictionary<Vector3, VoronoiNode> nodes;
 
-    public VoronoiGraph(DelaunayNode[] delaunayGraphNode3Ds) {
+    public VoronoiGraph(DelaunayNode[] delaunayGraphNode3Ds)
+    {
         nodes = new Dictionary<Vector3, VoronoiNode>();
         foreach (var d in delaunayGraphNode3Ds)
         {
@@ -18,8 +20,8 @@ public class VoronoiGraph {
             foreach (var n in d.neighbor)
             {
                 var centerNeighbor = n.Tetrahedra.GetCircumscribedSphere().center;
-                var centerVec  = centerNeighbor - centerTetra;
-                var centerSegment  = new Segment(centerTetra, centerNeighbor);
+                var centerVec = centerNeighbor - centerTetra;
+                var centerSegment = new Segment(centerTetra, centerNeighbor);
                 AssignSegment(t.b, t.a, centerVec, centerSegment);
                 AssignSegment(t.c, t.a, centerVec, centerSegment);
                 AssignSegment(t.d, t.a, centerVec, centerSegment);
@@ -41,7 +43,7 @@ public class VoronoiGraph {
                     nodes.Add(tetra, new VoronoiNode(tetra));
                 }
             }
-            
+
             void AssignSegment(Vector3 pair, Vector3 center, Vector3 v1, Segment sg)
             {
                 // if vecs are vertical add segment
@@ -49,11 +51,10 @@ public class VoronoiGraph {
                 {
                     return;
                 }
+
                 nodes.TryGetValue(center, out var v);
                 v?.Segments.Add((sg, pair));
             }
         }
-        
-
     }
 }
