@@ -1,8 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-     [SerializeField] private const float ArrowStingOffset = 0.15f;
+    [SerializeField] private const float ArrowStingOffset = 0.15f;
     [SerializeField] private Transform stingTransform;
     [SerializeField] private Bow bow;
 
@@ -18,6 +19,7 @@ public class Arrow : MonoBehaviour
     private Model model;
     public bool _shot = false;
     private Rigidbody rigid;
+    private Vector3 lastVel;
 
     private void Start()
     {
@@ -33,6 +35,7 @@ public class Arrow : MonoBehaviour
         var arrowStringPosition = bow.GetArrowStringPosition();
         if (fired)
         {
+            transform.Rotate(lastVel-rigid.velocity);
             FlyingArrow();
         }
 
@@ -58,7 +61,7 @@ public class Arrow : MonoBehaviour
 
     private void FlyingArrow()
     {
-        v = Time.deltaTime * a + v;
+        rigid.velocity = Time.deltaTime * model.GetWind() + rigid.velocity;
         s = Time.deltaTime * v + s;
         a = new Vector3(0, -9.81f, 0);
 
@@ -115,12 +118,13 @@ public class Arrow : MonoBehaviour
         };
         rigid.freezeRotation = true;
         rigid.velocity = projectorvecdir * bow.GetBowForce() * 20f;
+        lastVel = projectorvecdir * bow.GetBowForce() * 20f;
         //rigid.acceleration = model.GetWind();
        // rigid.AddExplosionForce();
         a = projectorvecdir * bow.GetBowForce() * 20f;
         s = transform.position;
         v = a;
-        transform.rotation = new Quaternion(projectorvecdir);
+        
         FlyingArrow();
         bow.ResetSting();
     }
