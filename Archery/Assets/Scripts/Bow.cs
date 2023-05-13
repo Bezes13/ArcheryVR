@@ -10,6 +10,8 @@ public class Bow : MonoBehaviour
     [SerializeField] private Transform arrowStringPosition;
     [SerializeField] private Transform arrowWoodPosition;
     [SerializeField] private ArrowSpawner spawner;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip clip;
 
     void Start()
     {
@@ -60,6 +62,8 @@ public class Bow : MonoBehaviour
     public void ShotFired()
     {
         _animator.SetTrigger("shot");
+        audioSource.clip = clip;
+        audioSource.Play();
         foreach (var item in spawner.arrows)
         {
             if(item.Item1.isAttachedToBow){

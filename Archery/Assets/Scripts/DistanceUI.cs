@@ -12,6 +12,6 @@ public class DistanceUI : MonoBehaviour
     }
     private void Update()
     {
-        distance.text = Math.Round(Vector3.Distance(transform.position, bow.transform.position)) + " Meter";
+        distance.text = Math.Round(Vector3.Distance(transform.position, bow.transform.position)) + "";
     }
 }

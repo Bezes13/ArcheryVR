@@ -6,11 +6,25 @@ public class PointsUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private TextMeshProUGUI windText;
+    [SerializeField] private TextMeshProUGUI windText2;
     [SerializeField] private Model model;
 
     private void Update()
     {
         pointsText.text = model.GetPoints().ToString();
-        windText.text = model.GetWind().ToString();
+        var dir = model.GetWind();
+        var side = Math.Abs(Math.Round(dir.x,1))+ "ms " + (dir.x < 0 ? "right" : "left");
+        var high = Math.Abs(Math.Round(dir.y,1))+ "ms " + (dir.y < 0 ? "down" : "up");
+        if(Math.Round(dir.y,2) == 0){
+            windText2.text = side;
+        }else{
+            windText.text = side;
+            windText2.text = high;
+        }
+      
+        // neg x = right
+        // pos x = left
+        // pos y = up
+        // neg z = front
     }
 }

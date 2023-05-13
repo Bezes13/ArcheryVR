@@ -3,7 +3,6 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
      [SerializeField] private const float ArrowStingOffset = 0.15f;
-
     [SerializeField] private Transform stingTransform;
     [SerializeField] private Bow bow;
 
@@ -16,7 +15,7 @@ public class Arrow : MonoBehaviour
     private Vector3 v;
     private Vector3 a;
 
-    public Model model;
+    private Model model;
     public bool _shot = false;
     private Rigidbody rigid;
 
@@ -24,6 +23,7 @@ public class Arrow : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         bow =  Object.FindObjectOfType<Bow>();
+        model =  Object.FindObjectOfType<Model>();
         Physics.IgnoreCollision(bow.GetComponent<Collider>(), this.GetComponent<Collider>());
         Physics.IgnoreCollision(Object.FindObjectOfType<Sting>().GetComponent<Collider>(), this.GetComponent<Collider>());
     }
@@ -62,7 +62,7 @@ public class Arrow : MonoBehaviour
         s = Time.deltaTime * v + s;
         a = new Vector3(0, -9.81f, 0);
 
-        //transform.position = s;
+       // transform.position = s;
     }
 
     public void Grab()
@@ -113,13 +113,14 @@ public class Arrow : MonoBehaviour
             StartRotation = startRot,
             Force = bow.GetBowForce()
         };
-        // rigid.freezeRotation
+        rigid.freezeRotation = true;
         rigid.velocity = projectorvecdir * bow.GetBowForce() * 20f;
+        //rigid.acceleration = model.GetWind();
        // rigid.AddExplosionForce();
         a = projectorvecdir * bow.GetBowForce() * 20f;
         s = transform.position;
         v = a;
-
+        transform.rotation = new Quaternion(projectorvecdir);
         FlyingArrow();
         bow.ResetSting();
     }

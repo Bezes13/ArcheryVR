@@ -5,6 +5,9 @@ using System;
 public class ShatterObject : MonoBehaviour
 {
     [SerializeField] protected PhysicMaterial phy;
+    [SerializeField] private ParticleSystem starExplosion;
+    [SerializeField] private AudioSource audioSource; 
+    [SerializeField] private AudioClip deadSound;
     [SerializeField] protected Material mat;
     [SerializeField] protected GameObject tgt;
     [SerializeField] protected int num;
@@ -54,12 +57,18 @@ public class ShatterObject : MonoBehaviour
         var obj = other.gameObject.GetComponent<Arrow>();
             
         if(obj != null){
+            starExplosion.gameObject.SetActive(true);
+            starExplosion.Play();
+            
             Break();
         }
     }
 
     public int GetPoints(){
         Bow bow =  UnityEngine.Object.FindObjectOfType<Bow>();
+        audioSource = bow.gameObject.GetComponent<AudioSource>();
+        audioSource.clip = deadSound;
+        audioSource.Play();
         return (int) Math.Round(Vector3.Distance(transform.position, bow.transform.position));
     }
 }
