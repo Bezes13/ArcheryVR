@@ -27,9 +27,9 @@ public class ShatterObject : MonoBehaviour
 
     private void Update()
     {
-        distance.text = Math.Round(Vector3.Distance(transform.position, _bow.transform.position)) + points == 0
+        distance.text = Math.Round(Vector3.Distance(transform.position, _bow.transform.position)) + (points == 0
             ? ""
-            : "+" + points;
+            : "+" + points);
     }
 
     void Break()

@@ -1,11 +1,12 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Model : MonoBehaviour
 {
     private int _points;
     private Vector3 _windDirection;
-    private const float WindForce = 10.0f;
+    public float WindForce = 10.0f;
 
     private void Start()
     {
@@ -27,5 +28,10 @@ public class Model : MonoBehaviour
     public Vector3 GetWind()
     {
         return _windDirection * WindForce;
+    }
+
+    public void NextScene(){
+        Debug.Log("Pressed Button");
+        SceneManager.LoadScene("Game_Scene");
     }
 }

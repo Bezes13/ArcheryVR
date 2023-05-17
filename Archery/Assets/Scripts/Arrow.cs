@@ -81,8 +81,11 @@ public class Arrow : MonoBehaviour
         fired = true;
         var projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
         var projectorVecNormalized = projectorVec.normalized;
-        _rigid.freezeRotation = true;
-        _rigid.velocity = projectorVecNormalized * bow.GetBowForce() * 20f;
+        _rigid.freezeRotation = false;
+        _rigid.useGravity = true;
+        _rigid.isKinematic = false;
+        _rigid.AddForce( projectorVecNormalized * bow.GetBowForce() * 20f, ForceMode.VelocityChange );
+		_rigid.AddTorque(  projectorVecNormalized * 20 );
         bow.ResetSting();
     }
 }

@@ -20,7 +20,6 @@ public class BowUI : MonoBehaviour
         }
 
         angle.text = (bow.GetArrowWoodPosition().y < bow.GetArrowStringPosition().y ? "-" : "") +
-                     Math.Round(Vector3.Angle(projectorVecNorm, new Vector3(projectorVecNorm.x, 0, projectorVecNorm.z))) +
-                     "°";
+                     Math.Round(Vector3.Angle(projectorVecNorm, new Vector3(projectorVecNorm.x, 0, projectorVecNorm.z)));
     }
 }
