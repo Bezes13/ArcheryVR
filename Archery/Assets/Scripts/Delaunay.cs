@@ -19,10 +19,10 @@ public class Delaunay
         offset = Vector3.zero;
         this.scl = 1;
         var root = new Tetrahedra(
-            Vector3.zero + offset,
-            new Vector3(scl * 3, 0, 0) + offset,
-            new Vector3(0, scl * 3, 0) + offset,
-            new Vector3(0, 0, scl * 3) + offset);
+            new Vector3(0, 0, 0),
+            new Vector3(scl * 3, 0, 0),
+            new Vector3(0, scl * 3, 0),
+            new Vector3(0, 0, scl * 3));
         Nodes = new List<DelaunayNode> {new(root)};
         Debug.Log(target.transform.localScale.x);
         // Generate Random Points and add them to Delaunay 
@@ -32,12 +32,12 @@ public class Delaunay
                 UnityEngine.Random.value * scl);
             //p = target.GetComponent<MeshFilter>().mesh.bounds.ClosestPoint(p);
             // Split(p*target.transform.localScale.x); 
-            Split(p);
-            Leagalize();
+        
+            AddPoint(p);
         }
     }
 
-    private void Split(Vector3 p)
+    void AddPoint(Vector3 p)
     {
         p = p * scl + offset;
         Debug.Log(p);
@@ -52,10 +52,6 @@ public class Delaunay
         _stack.Push(o.t2);
         _stack.Push(o.t3);
         _stack.Push(o.t4);
-    }
-
-    void Leagalize()
-    {
         // Go through the new added tetras
         while (_stack.Count > 0)
         {
