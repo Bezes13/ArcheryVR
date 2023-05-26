@@ -16,21 +16,21 @@ public class Triangle
         _n = Vector3.Normalize(Vector3.Cross(b - a, c - a));
     }
 
-    public Segment Remaining(Vector3 p)
+    public Line Remaining(Vector3 p)
     {
         if (p.Equals(a))
         {
-            return new Segment(b, c);
+            return new Line(b, c);
         }
 
         if (p.Equals(b))
         {
-            return new Segment(c, a);
+            return new Line(c, a);
         }
 
         if (p.Equals(c))
         {
-            return new Segment(a, b);
+            return new Line(a, b);
         }
 
         throw new Exception();
@@ -46,14 +46,14 @@ public class Triangle
                Equals(t.c, a) && Equals(t.b, b) && Equals(t.a, c);
     }
 
-    public Triangle(Segment segment, Vector3 c)
+    public Triangle(Line line, Vector3 c)
     {
-        a = segment.a;
-        b = segment.b;
+        a = line.a;
+        b = line.b;
         this.c = c;
     }
 
-    public bool Intersects(Segment e, out Vector3 p, out bool isOnEdge)
+    public bool Intersects(Line e, out Vector3 p, out bool isOnEdge)
     {
         if (!CramersRule(e.a, Vector3.Normalize(e.b - e.a), out var d, out p))
         {
@@ -69,10 +69,10 @@ public class Triangle
         return f1 && f2;
     }
 
-    public bool IsSameSide(Vector3 p1, Vector3 p2, bool includeOnPlane)
+    public bool SameSide(Vector3 p1, Vector3 p2)
     {
         double d = Vector3.Dot(_n, p1 - a) * Vector3.Dot(_n, p2 - a);
-        return includeOnPlane ? d >= 0 : d > 0;
+        return d >= 0;
     }
 
     bool CramersRule(Vector3 ogn, Vector3 ray, out Vector3 det, out Vector3 pos)

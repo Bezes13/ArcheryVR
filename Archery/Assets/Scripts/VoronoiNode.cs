@@ -5,13 +5,13 @@ using UnityEngine;
 public class VoronoiNode
 {
     public Vector3 center;
-    public List<(Segment sg, Vector3 pair)> Segments;
+    public List<(Line sg, Vector3 pair)> Segments;
     private List<VoronoiFace> _faces;
 
     public VoronoiNode(Vector3 c)
     {
         center = c;
-        Segments = new List<(Segment, Vector3)>();
+        Segments = new List<(Line, Vector3)>();
     }
 
     public Mesh Meshilify()

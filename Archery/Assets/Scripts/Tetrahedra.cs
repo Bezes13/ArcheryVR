@@ -25,17 +25,17 @@ public class Tetrahedra
         dab = new Triangle(d, a, b);
     }
 
-    public bool Contains(Vector3 p, bool includeOnFacet)
+    public bool Contains(Vector3 p)
     {
         // if Point is on the inner side of each face, then it is in the tetraeder
-        var f1 = abc.IsSameSide(d, p, includeOnFacet);
-        var f2 = bcd.IsSameSide(a, p, includeOnFacet);
-        var f3 = cda.IsSameSide(b, p, includeOnFacet);
-        var f4 = dab.IsSameSide(c, p, includeOnFacet);
+        var f1 = abc.SameSide(d, p);
+        var f2 = bcd.SameSide(a, p);
+        var f3 = cda.SameSide(b, p);
+        var f4 = dab.SameSide(c, p);
         return f1 && f2 && f3 && f4;
     }
 
-    public Sphere GetCircumscribedSphere()
+    public Sphere GetSphere()
     {
         var a2 = new Vector3(a.x * a.x, a.y * a.y, a.z * a.z);
         var a2Ex = a2.x + a2.y + a2.z;

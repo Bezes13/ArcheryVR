@@ -40,18 +40,17 @@ public class Delaunay
     void AddPoint(Vector3 p)
     {
         p = p * scl + offset;
-        Debug.Log(p);
-        var n = Nodes.Find(tetra => tetra.Tetrahedra.Contains(p, true));
-        var o = n.Split(p);
+        var n = Nodes.Find(tetra => tetra.Tetrahedra.Contains(p));
+        var splitTuple = n.Split(p);
         Nodes.Remove(n);
-        Nodes.Add(o.n1);
-        Nodes.Add(o.n2);
-        Nodes.Add(o.n3);
-        Nodes.Add(o.n4);
-        _stack.Push(o.t1);
-        _stack.Push(o.t2);
-        _stack.Push(o.t3);
-        _stack.Push(o.t4);
+        Nodes.Add(splitTuple.n1);
+        Nodes.Add(splitTuple.n2);
+        Nodes.Add(splitTuple.n3);
+        Nodes.Add(splitTuple.n4);
+        _stack.Push(splitTuple.t1);
+        _stack.Push(splitTuple.t2);
+        _stack.Push(splitTuple.t3);
+        _stack.Push(splitTuple.t4);
         // Go through the new added tetras
         while (_stack.Count > 0)
         {
@@ -66,8 +65,8 @@ public class Delaunay
             //            do flip, remove triangles from stack and add tetras to nodes
             //      else find Intersecting Point
             //          do flip on other things
-            if (!n1.Tetrahedra.GetCircumscribedSphere().Contains(p2)) continue;
-            if (t.Intersects(new Segment(p1, p2), out Vector3 i, out var onEdge))
+            if (!n1.Tetrahedra.GetSphere().Contains(p2)) continue;
+            if (t.Intersects(new Line(p1, p2), out Vector3 i, out var onEdge))
             {
                 var o = DelaunayNode.Flip23(n1, n2, p1, p2, t);
                 _stack.Push(o.t1);
@@ -89,9 +88,9 @@ public class Delaunay
             else
             {
                 Vector3 far;
-                if (IsIntersecting(new Segment(i, t.a), new Segment(t.b, t.c))) far = t.a;
-                else if (IsIntersecting(new Segment(i, t.b), new Segment(t.c, t.a))) far = t.b;
-                else if (IsIntersecting(new Segment(i, t.c), new Segment(t.a, t.b))) far = t.c;
+                if (IsIntersecting(new Line(i, t.a), new Line(t.b, t.c))) far = t.a;
+                else if (IsIntersecting(new Line(i, t.b), new Line(t.c, t.a))) far = t.b;
+                else if (IsIntersecting(new Line(i, t.c), new Line(t.a, t.b))) far = t.c;
                 else throw new Exception();
 
                 var cm = t.Remaining(far);
@@ -119,7 +118,7 @@ public class Delaunay
         }
     }
 
-    private static bool IsIntersecting(Segment e1, Segment e2)
+    private static bool IsIntersecting(Line e1, Line e2)
     {
         var v1 = e1.b - e1.a;
         var v2 = e2.b - e2.a;

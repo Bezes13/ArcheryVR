@@ -13,7 +13,7 @@ public class VoronoiFace
         Vertices = new List<Vector3>();
     }
 
-    public void TryAddVertices(Segment s, Vector3 center)
+    public void TryAddVertices(Line s, Vector3 center)
     {
         var f1 = false;
         var f2 = false;

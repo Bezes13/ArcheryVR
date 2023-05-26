@@ -16,12 +16,12 @@ public class VoronoiGraph
             AddToNodes(t.b);
             AddToNodes(t.c);
             AddToNodes(t.d);
-            var centerTetra = t.GetCircumscribedSphere().center;
+            var centerTetra = t.GetSphere().center;
             foreach (var n in d.neighbor)
             {
-                var centerNeighbor = n.Tetrahedra.GetCircumscribedSphere().center;
+                var centerNeighbor = n.Tetrahedra.GetSphere().center;
                 var centerVec = centerNeighbor - centerTetra;
-                var centerSegment = new Segment(centerTetra, centerNeighbor);
+                var centerSegment = new Line(centerTetra, centerNeighbor);
                 AssignSegment(t.b, t.a, centerVec, centerSegment);
                 AssignSegment(t.c, t.a, centerVec, centerSegment);
                 AssignSegment(t.d, t.a, centerVec, centerSegment);
@@ -44,7 +44,7 @@ public class VoronoiGraph
                 }
             }
 
-            void AssignSegment(Vector3 pair, Vector3 center, Vector3 v1, Segment sg)
+            void AssignSegment(Vector3 pair, Vector3 center, Vector3 v1, Line sg)
             {
                 // if vecs are vertical add segment
                 if (!(Math.Abs(Vector3.Dot(pair - center, v1)) < Delaunay.Threshold))
