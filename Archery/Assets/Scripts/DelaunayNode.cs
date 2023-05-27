@@ -45,15 +45,18 @@ public class DelaunayNode
         }
 
         n.neighbor.Add(pair);
-        if (!n.HasFacet(t))
+        pair.ReplaceFacingNode(t, n);
+    }
+    private void ReplaceFacingNode(Triangle t, DelaunayNode replacer)
+    {
+        if (!replacer.HasFacet(t))
         {
             return;
         }
-
-        neighbor = neighbor.Select(node => node.HasFacet(t) ? n : node).ToList();
+        neighbor = neighbor.Select(n => n.HasFacet(t) ? replacer : n).ToList();
     }
 
-    public DelaunayNode GetFacingNode(Triangle t)
+     public DelaunayNode GetFacingNode(Triangle t)
     {
         return HasFacet(t) ? neighbor.Find(n => n.HasFacet(t)) : null;
     }

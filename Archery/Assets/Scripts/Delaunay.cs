@@ -73,11 +73,18 @@ public class Delaunay
                 
                 var o = Flip32(nodes[0], nodes[1], n3, p1, far, p2, cm.a, cm.b);
                 FlipResult(o);
+                Nodes.Remove(nodes[0]);
+                Nodes.Remove(nodes[1]);
+                Nodes.Remove(n3);
+                Nodes.AddRange(o.Item2);
             }
             else
             {
                 var o = Flip23(nodes[0], nodes[1], p1, p2, t);
                 FlipResult(o);
+                Nodes.Remove(nodes[0]);
+                Nodes.Remove(nodes[1]);
+                Nodes.AddRange(o.Item2);
             }
             
             void FlipResult((List<Triangle>, List<DelaunayNode>) flip)
@@ -87,9 +94,6 @@ public class Delaunay
                     _stack.Push(triangle);
                 }
 
-                Nodes.Remove(nodes[0]);
-                Nodes.Remove(nodes[1]);
-                Nodes.AddRange(flip.Item2);
             }
         }
     }
