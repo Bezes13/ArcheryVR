@@ -53,19 +53,15 @@ public class Triangle
         this.c = c;
     }
 
-    public bool Intersects(Line e, out Vector3 p, out bool isOnEdge)
+    public bool Intersects(Line e, out Vector3 p)
     {
         if (!CramersRule(e.a, Vector3.Normalize(e.b - e.a), out var d, out p))
         {
-            isOnEdge = default;
             return false;
         }
 
-        var f1 = d.x >= 0 && d.x <= 1 && d.y >= 0 && d.y <= 1 && d.x + d.y <= 1;
+        var f1 = d.x is >= 0 and <= 1 && d.y is >= 0 and <= 1 && d.x + d.y <= 1;
         var f2 = d.z >= 0 && d.z <= Vector3.Magnitude(e.b - e.a);
-        isOnEdge = Math.Abs(d.x) < Delaunay.Threshold || Math.Abs(d.x - 1) < Delaunay.Threshold ||
-                   Math.Abs(d.y) < Delaunay.Threshold || Math.Abs(d.y - 1) < Delaunay.Threshold ||
-                   Math.Abs(d.x + d.y - 1) < Delaunay.Threshold;
         return f1 && f2;
     }
 
