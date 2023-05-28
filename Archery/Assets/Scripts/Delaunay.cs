@@ -34,12 +34,12 @@ public class Delaunay
     private void AddPoint(Vector3 p)
     {
         var n = Nodes.Find(tetra => tetra.Tetrahedra.Contains(p));
-        var nodes = n.Split(p);
+        var splitNode = n.Split(p);
         Nodes.Remove(n);
-        Nodes.AddRange(nodes);
-        foreach (var triangle in nodes)
+        Nodes.AddRange(splitNode);
+        foreach (var tetra in splitNode)
         {
-            _stack.Push(triangle.Tetrahedra);
+            _stack.Push(tetra.Tetrahedra);
         }
 
         // Go through the new added tetras
@@ -48,14 +48,16 @@ public class Delaunay
             var t = _stack.Pop();
             // Find tetras which contain the triangle face
             var triangle = t.RemainingTriangle(p);
-            var t2 = FindNodeWithSameFace(triangle, p);
-            if (t2 == null) continue;
+            var nodes = FindNodes(triangle);
+            if (nodes.Count == 0) continue;
             // get the remaining points
-            var p2 = t2.Tetrahedra.RemainingPoint(triangle);
-            // If is Delaunay then we can skip this
-            if (t.GetSphere().Contains(p2)) continue;
+            var p1 = nodes[0].Tetrahedra.RemainingPoint(triangle);
+            var p2 = nodes[1].Tetrahedra.RemainingPoint(triangle);
             
-            if (!triangle.Intersects(new Line(p, p2), out var i))
+            // If is Delaunay then we can skip this
+            if (!nodes[0].Tetrahedra.GetSphere().Contains(p2)) continue;
+            
+            if (!triangle.Intersects(new Line(p1, p2), out var i))
             {
                 Vector3 far;
                 if (Line.IsIntersecting(new Line(i, t.a), new Line(t.b, t.c))) far = t.a;
@@ -64,12 +66,12 @@ public class Delaunay
                 else throw new Exception();
 
                 var cm = triangle.Remaining(far);
-                var t3 = new Triangle(cm, p);
+                var t3 = new Triangle(cm, p1);
                 var n3 = nodes[0].GetFacingNode(t3);
 
                 if (!Equals(n3.Tetrahedra.RemainingPoint(t3), p2)) continue;
                 
-                var o = Flip32(nodes[0], nodes[1], n3, p, far, p2, cm.a, cm.b);
+                var o = Flip32(nodes[0], nodes[1], n3, p1, far, p2, cm.a, cm.b);
                 FlipResult(o);
                 Nodes.Remove(nodes[0]);
                 Nodes.Remove(nodes[1]);
@@ -78,7 +80,7 @@ public class Delaunay
             }
             else
             {
-                var o = Flip23(nodes[0], nodes[1], p, p2, triangle);
+                var o = Flip23(nodes[0], nodes[1], p1, p2, triangle);
                 FlipResult(o);
                 Nodes.Remove(nodes[0]);
                 Nodes.Remove(nodes[1]);
@@ -96,20 +98,10 @@ public class Delaunay
         }
     }
 
-    private DelaunayNode FindNodeWithSameFace(Triangle triangle, Vector3 p)
+    private List<DelaunayNode> FindNodes(Triangle t)
     {
-        var o = Nodes.FindAll(n => n.HasFacet(triangle));
-        if (o.Count != 2) return null;
-
-        foreach (var node in o)
-        {
-            if (node.Tetrahedra.RemainingPoint(triangle) != p)
-            {
-                return node;
-            }
-        }
-
-        return null;
+        var o = Nodes.FindAll(n => n.HasFacet(t));
+        return o.Count == 2 ? o : new List<DelaunayNode>();
     }
     
     private static List<DelaunayNode> Flip23(DelaunayNode n1, DelaunayNode n2, Vector3 p1, Vector3 p2, Triangle t)
