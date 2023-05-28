@@ -14,7 +14,7 @@ public class DelaunayNode
         neighbor = new List<DelaunayNode>(4);
     }
 
-    public (List<Triangle>, List<DelaunayNode>) Split(Vector3 p)
+    public  List<DelaunayNode> Split(Vector3 p)
     {
         var abc = new DelaunayNode(p, Tetrahedra.a, Tetrahedra.b, Tetrahedra.c);
         var abcTriangle = new Triangle(Tetrahedra.a, Tetrahedra.b, Tetrahedra.c);
@@ -33,7 +33,7 @@ public class DelaunayNode
         SetNeighbor(bcd, bcdTriangle);
         SetNeighbor(cda, cdaTriangle);
         SetNeighbor(dab, dabTriangle);
-        return (new List<Triangle>(){abcTriangle, bcdTriangle, cdaTriangle, dabTriangle}, new List<DelaunayNode>(){ abc, bcd, cda, dab});
+        return new List<DelaunayNode>(){ abc, bcd, cda, dab};
     }
     
     public void SetNeighbor(DelaunayNode n, Triangle t)

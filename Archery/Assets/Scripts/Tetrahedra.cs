@@ -94,6 +94,30 @@ public class Tetrahedra
         throw new Exception();
     }
 
+    public Triangle RemainingTriangle(Vector3 t)
+    {
+        if (t.Equals(d))
+        {
+            return abc;
+        }
+
+        if (t.Equals(a))
+        {
+            return bcd;
+        }
+
+        if (t.Equals(b))
+        {
+            return cda;
+        }
+
+        if (t.Equals(c))
+        {
+            return dab;
+        }
+
+        throw new Exception();
+    }
     public bool ContainsFace(Triangle t)
     {
         return t.Equals(abc) || t.Equals(bcd) || t.Equals(cda) || t.Equals(dab);
