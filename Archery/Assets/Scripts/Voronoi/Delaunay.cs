@@ -15,7 +15,7 @@ namespace Voronoi
             _stack = new Stack<DelaunayNode>();
             // The tetrahedron which contains the object
             // offset = target.transform.position;
-            var root = new Tetrahedra(
+            var root = new Tetrahedron(
                 new Vector3(0, 0, 0),
                 new Vector3(scl * 3, 0, 0),
                 new Vector3(0, scl * 3, 0),
@@ -38,7 +38,7 @@ namespace Voronoi
         private void AddPoint(Vector3 p)
         {
             // Find Node which contains p
-            var n = Nodes.Find(tetra => tetra.Tetrahedrons.Contains(p));
+            var n = Nodes.Find(tetra => tetra.Tetrahedrons.IsInside(p));
             // Split n into 4 nodes and add them to stack
             var splitNode = n.Split(p);
             Nodes.Remove(n);
@@ -137,17 +137,17 @@ namespace Voronoi
             return  new List<DelaunayNode> { nab, nbc, nca };
         }
 
-        private static List<DelaunayNode> Flip32(DelaunayNode n1, DelaunayNode n2, DelaunayNode n3, Vector3 p1, Vector3 far, Vector3 p2, Vector3 x, Vector3 y)
+        private static List<DelaunayNode> Flip32(DelaunayNode n1, DelaunayNode n2, DelaunayNode n3, Vector3 p1, Vector3 far, Vector3 p2, Vector3 a, Vector3 b)
         {
-            var nx = new DelaunayNode(p1, far, p2, x);
-            var ny = new DelaunayNode(p1, far, p2, y);
+            var nx = new DelaunayNode(p1, far, p2, a);
+            var ny = new DelaunayNode(p1, far, p2, b);
             nx.neighbor.Add(ny);
             ny.neighbor.Add(nx);
     
             var triangles = new List<Triangle>
             {
-                new(x, p1, far), new(x, far, p2), new(x, p2, p1),
-                new(y, p1, far), new(y, far, p2), new(y, p2, p1)
+                new(a, p1, far), new(a, far, p2), new(a, p2, p1),
+                new(b, p1, far), new(b, far, p2), new(b, p2, p1)
             };
     
             n1.SetNeighbor(nx, triangles[0]);

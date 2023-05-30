@@ -28,10 +28,11 @@ namespace Voronoi
             private double W { get; set; }
 
             static readonly double EPSILON = 1e-5d;
-            static readonly int ONPLANE = 0;
-            static readonly int FACE = 1;
-            static readonly int BACK = 2;
-            static readonly int SPAN = 3;
+
+            public enum planeType
+            {
+            OnPlane, Face, Back, Span
+            }
 
             public Plane(Plane src)
             {
@@ -51,24 +52,24 @@ namespace Voronoi
                 W *= -1;
             }
 
-            int GetType(Vector3 p)
+            planeType GetType(Vector3 p)
             {
                 var v = Vector3.Dot(N, p) - W;
                 var isNearPlane = Math.Abs(v) < EPSILON;
                 var isFacingSide = v > 0;
                 if (isNearPlane)
                 {
-                    return ONPLANE;
+                    return planeType.OnPlane;
                 }
 
-                return isFacingSide ? FACE : BACK;
+                return isFacingSide ? planeType.Face : planeType.Back;
             }
 
             public (Polygon onPF, Polygon onPB, Polygon face, Polygon back) SplitPolygon(Polygon p)
             {
                 var l = p.Verts.Length;
-                var pType = 0;
-                var vType = new int[l];
+                var pType = planeType.OnPlane;
+                var vType = new planeType[l];
 
                 for (var i = 0; i < l; i++)
                 {
@@ -80,10 +81,13 @@ namespace Voronoi
                 switch (pType)
                 {
                     default: throw new Exception();
-                    case 0: return (Vector3.Dot(N, p.Plane.N) > 0) ? (p, null, null, null) : (null, p, null, null);
-                    case 1: return (null, null, p, null);
-                    case 2: return (null, null, null, p);
-                    case 3:
+                    case planeType.OnPlane:
+                        return (Vector3.Dot(N, p.Plane.N) > 0) ? (p, null, null, null) : (null, p, null, null);
+                    case planeType.Face:
+                        return (null, null, p, null);
+                    case planeType.Back:
+                        return (null, null, null, p);
+                    case planeType.Span:
                         var faces = new List<Vector3>();
                         var backs = new List<Vector3>();
                         for (var i = 0; i < l; i++)
@@ -94,18 +98,18 @@ namespace Voronoi
                             var vi = p.Verts[i];
                             var vj = p.Verts[j];
 
-                            if (si == FACE) faces.Add(vi);
-                            else if (si == BACK) backs.Add(vi);
+                            if (si == planeType.Face) faces.Add(vi);
+                            else if (si == planeType.Back) backs.Add(vi);
                             else
                             {
                                 faces.Add(vi);
                                 backs.Add(vi);
                             }
 
-                            if ((si | sj) == SPAN)
+                            if ((si | sj) == planeType.Span)
                             {
                                 var t = (W - Vector3.Dot(N, vi)) / Vector3.Dot(N, vj - vi);
-                                var v = Vector3.Lerp(vi, vj, (float) t);
+                                var v = Vector3.Lerp(vi, vj, (float)t);
                                 faces.Add(v);
                                 backs.Add(v);
                             }
@@ -174,9 +178,9 @@ namespace Voronoi
                 var (c, _) = verts[i * 3 + 2];
                 var crs = Vector3.Cross(b - a, c - a);
                 if (Vector3.Dot(crs, nrm) > 0)
-                    polys[i] = new Polygon(new[] {a, b, c});
+                    polys[i] = new Polygon(new[] { a, b, c });
                 else
-                    polys[i] = new Polygon(new[] {a, c, b});
+                    polys[i] = new Polygon(new[] { a, c, b });
             }
 
             return polys;

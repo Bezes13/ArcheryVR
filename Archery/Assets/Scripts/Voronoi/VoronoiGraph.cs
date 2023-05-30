@@ -50,7 +50,7 @@ namespace Voronoi
 
                 void AssignSegment(Vector3 pair, Vector3 center, Vector3 v1, Line sg)
                 {
-                    // if vecs are vertical add segment
+                    // if vecs are vertical add as segment
                     if (!(Math.Abs(Vector3.Dot(pair - center, v1)) < Delaunay.Threshold))
                     {
                         return;

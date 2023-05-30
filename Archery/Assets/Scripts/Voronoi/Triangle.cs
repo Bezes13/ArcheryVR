@@ -67,7 +67,7 @@ namespace Voronoi
             return f1 && f2;
         }
 
-        public bool SameSide(Vector3 p1, Vector3 p2)
+        public bool InSide(Vector3 p1, Vector3 p2)
         {
             double d = Vector3.Dot(_n, p1 - a) * Vector3.Dot(_n, p2 - a);
             return d >= 0;

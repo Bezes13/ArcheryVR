@@ -6,13 +6,13 @@ namespace Voronoi
 {
     public class DelaunayNode
     {
-        public readonly Tetrahedra Tetrahedrons;
+        public readonly Tetrahedron Tetrahedrons;
         public List<DelaunayNode> neighbor;
         private bool HasFacet(Triangle t) => Tetrahedrons.ContainsFace(t);
 
         public DelaunayNode(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
         {
-            Tetrahedrons = new Tetrahedra(a, b, c, d);
+            Tetrahedrons = new Tetrahedron(a, b, c, d);
             neighbor = new List<DelaunayNode>(4);
         }
 

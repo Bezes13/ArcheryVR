@@ -13,15 +13,9 @@ namespace Voronoi
             _radius = r;
         }
 
-        public bool Contains(Vector3 p, bool inclusive = true)
+        public bool Contains(Vector3 p)
         {
-            var length = Vector3.SqrMagnitude(p - center);
-            if (inclusive)
-            {
-                return length <= _radius * _radius;
-            }
-
-            return length < _radius * _radius;
+            return Vector3.Distance(center, p) <= _radius;
         }
     }
 }

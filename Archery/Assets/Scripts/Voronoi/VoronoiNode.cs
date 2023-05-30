@@ -7,7 +7,7 @@ namespace Voronoi
     public class VoronoiNode
     {
         public Vector3 center;
-        public List<(Line sg, Vector3 pair)> Segments;
+        public readonly List<(Line sg, Vector3 pair)> Segments;
         private List<VoronoiFace> _faces;
 
         public VoronoiNode(Vector3 c)
@@ -32,11 +32,10 @@ namespace Voronoi
             {
                 foreach (var t in _faces)
                 {
-                    var s = t1;
-                    var f = t;
-                    if (s.pair.Equals(f.Key))
+                    var (sg, pair) = t1;
+                    if (pair.Equals(t.Key))
                     {
-                        f.TryAddVertices(s.sg, center);
+                        t.TryAddVertices(sg, center);
                     }
                 }
             }

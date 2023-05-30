@@ -17,29 +17,15 @@ namespace Voronoi
 
         public void TryAddVertices(Line s, Vector3 center)
         {
-            var f1 = true;
-            var f2 = true;
             var sA = s.a - center;
             var sB = s.b - center;
-            foreach (var v in _vertices)
-            {
-                if (v.Equals(sA))
-                {
-                    f1 = false;
-                }
 
-                if (v.Equals(sB))
-                {
-                    f2 = false;
-                }
-            }
-
-            if (f1)
+            if (!_vertices.Contains(sA))
             {
                 _vertices.Add(sA);
             }
 
-            if (f2)
+            if (!_vertices.Contains(sB))
             {
                 _vertices.Add(sB);
             }
@@ -63,6 +49,7 @@ namespace Voronoi
                 var va = _vertices[i];
                 var vb = _vertices[i + 1];
                 var f = Vector3.Dot(Vector3.Cross(vb - va, v0 - va), v0) > 0;
+
                 o[(i - 1) * 3 + 0] = v0;
                 o[(i - 1) * 3 + 1] = f ? va : vb;
                 o[(i - 1) * 3 + 2] = f ? vb : va;
