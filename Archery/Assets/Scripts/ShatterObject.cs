@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using Voronoi;
 
 public class ShatterObject : MonoBehaviour
 {
