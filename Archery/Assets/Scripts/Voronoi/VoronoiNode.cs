@@ -8,7 +8,6 @@ namespace Voronoi
     {
         public Vector3 center;
         public readonly List<(Line sg, Vector3 neighbour)> Segments;
-        //private List<VoronoiFace> _faces;
 
         public VoronoiNode(Vector3 c)
         {
@@ -18,24 +17,32 @@ namespace Voronoi
 
         public Mesh CreateMesh()
         {
-             var _faces = new List<VoronoiFace>();
+             var faces = new List<VoronoiFace>();
 
             foreach ((_, Vector3 pair) in Segments)
             {
                 var voronoiFace = new VoronoiFace(pair);
-                if (!_faces.Contains(voronoiFace))
+                if (!faces.Exists(x=> x.Key.Equals(pair)))
                 {
-                    _faces.Add(voronoiFace);
+                    faces.Add(voronoiFace);
                 }
             }
-            foreach (var t1 in Segments)
+            foreach (var (s, neighbour) in Segments)
             {
-                foreach (var t in _faces)
+                foreach (var t in faces)
                 {
-                    var (sg, neighbour) = t1;
-                    if (neighbour.Equals(t.Key))
+                    if (!neighbour.Equals(t.Key)) continue;
+                    var sA = s.a - center;
+                    var sB = s.b - center;
+
+                    if (!t.Vertices.Contains(sA))
                     {
-                        t.TryAddVertices(sg, center);
+                        t.Vertices.Add(sA);
+                    }
+
+                    if (!t.Vertices.Contains(sB))
+                    {
+                        t.Vertices.Add(sB);
                     }
                 }
             }
@@ -43,7 +50,7 @@ namespace Voronoi
             var nums = 0;
             var verts = new List<Vector3>();
 
-            foreach (var f in _faces)
+            foreach (var f in faces)
             {
                 var v = f.Meshilify();
                 nums += v.Length;
