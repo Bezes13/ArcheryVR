@@ -4,22 +4,25 @@ using UnityEngine;
 
 namespace Voronoi
 {
-    public class VoronoiNode
+    /// <summary>
+    /// Represents a Voronoi cell, which has a center and a list of edges which belong to the cell
+    /// </summary>
+    public class VoronoiCell
     {
         public Vector3 center;
-        public readonly List<(Line sg, Vector3 neighbour)> Segments;
+        public readonly List<(Line sg, Vector3 neighbour)> Edges;
 
-        public VoronoiNode(Vector3 c)
+        public VoronoiCell(Vector3 c)
         {
             center = c;
-            Segments = new List<(Line, Vector3)>();
+            Edges = new List<(Line, Vector3)>();
         }
 
         public Mesh CreateMesh()
         {
              var faces = new List<VoronoiFace>();
 
-            foreach ((_, Vector3 pair) in Segments)
+            foreach ((_, Vector3 pair) in Edges)
             {
                 var voronoiFace = new VoronoiFace(pair);
                 if (!faces.Exists(x=> x.Key.Equals(pair)))
@@ -27,7 +30,7 @@ namespace Voronoi
                     faces.Add(voronoiFace);
                 }
             }
-            foreach (var (s, neighbour) in Segments)
+            foreach (var (s, neighbour) in Edges)
             {
                 foreach (var t in faces)
                 {
@@ -54,7 +57,7 @@ namespace Voronoi
             {
                 var v = f.Meshilify();
                 nums += v.Length;
-                verts.AddRange(v.Select(v => v));
+                verts.AddRange(v.Select(vec => vec));
             }
 
             var m = new Mesh();

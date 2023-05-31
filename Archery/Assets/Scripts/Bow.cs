@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// This class handles the Behaviour of the Bow
+/// </summary>
 public class Bow : MonoBehaviour
 {
     private const float MaxStingRange = 0.0738f;
@@ -28,6 +31,7 @@ public class Bow : MonoBehaviour
     [SerializeField] private ArrowSpawner spawner;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip clip;
+    private static readonly int Bow1 = Animator.StringToHash("bow");
 
     private void Start()
     {
@@ -36,10 +40,12 @@ public class Bow : MonoBehaviour
 
     private void Update()
     {
-        arrowStringPosition.localPosition =
-            new Vector3(0, Mathf.Max(-MaxStingRange, arrowStringPosition.localPosition.y), 0);
-        var value = GetStringPosition(arrowStringPosition.localPosition.y);
-        _animator.SetFloat("bow", value);
+        var localPosition = arrowStringPosition.localPosition;
+        localPosition =
+            new Vector3(0, Mathf.Max(-MaxStingRange, localPosition.y), 0);
+        arrowStringPosition.localPosition = localPosition;
+        var value = GetStringPosition(localPosition.y);
+        _animator.SetFloat(Bow1, value);
     }
 
     public Vector3 GetArrowStringPosition()

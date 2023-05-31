@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the Tutorial-UI
+/// </summary>
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] GameObject first;
-    [SerializeField] GameObject second;
-    [SerializeField] GameObject third;
-    [SerializeField] GameObject last;
-    [SerializeField] Bow bow;
+    [SerializeField] private GameObject first;
+    [SerializeField] private GameObject second;
+    [SerializeField] private GameObject third;
+    [SerializeField] private GameObject last;
     [SerializeField] private ArrowSpawner spawner;
     // Start is called before the first frame update
     void Start()

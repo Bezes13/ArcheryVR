@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Voronoi
 {
+    /// <summary>
+    /// Represents a Voronoi Graph with a List of VoronoiCells
+    /// </summary>
     public class VoronoiGraph
     {
-        public readonly Dictionary<Vector3, VoronoiNode> cells;
+        public readonly Dictionary<Vector3, VoronoiCell> cells;
 
         public VoronoiGraph(DelaunayNode[] delaunayGraphNode3Ds)
         {
-            cells = new Dictionary<Vector3, VoronoiNode>();
+            cells = new Dictionary<Vector3, VoronoiCell>();
 
             foreach (var d in delaunayGraphNode3Ds)
             {
@@ -48,7 +51,7 @@ namespace Voronoi
         {
             if (!cells.ContainsKey(tetra))
             {
-                cells.Add(tetra, new VoronoiNode(tetra));
+                cells.Add(tetra, new VoronoiCell(tetra));
             }
         }
 
@@ -61,7 +64,7 @@ namespace Voronoi
 
             if (cells.TryGetValue(center, out var v))
             {
-                v.Segments.Add((edge, pair));
+                v.Edges.Add((edge, pair));
             }
         }
     }

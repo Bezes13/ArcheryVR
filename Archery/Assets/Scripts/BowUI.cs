@@ -1,8 +1,13 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// The BowUI handles the UI for the Bow, it shows the
+///     power (how much the string is pulled back) and
+///     the angle of the Bow to the Ground. 
+/// </summary>
 public class BowUI : MonoBehaviour
 {
     [SerializeField] private Bow bow;
@@ -11,7 +16,7 @@ public class BowUI : MonoBehaviour
 
     private void Update()
     {
-        power.text = Math.Round(100 * bow.GetBowForce()).ToString();
+        power.text = Math.Round(100 * bow.GetBowForce()).ToString(CultureInfo.InvariantCulture);
         Vector3 projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
         Vector3 projectorVecNorm = projectorVec.normalized;
         if (bow.GetArrowWoodPosition().y < bow.GetArrowStringPosition().y)

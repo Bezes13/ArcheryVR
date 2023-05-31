@@ -2,6 +2,9 @@ using System;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// The Ui which shows the current Points and the wind to the player.
+/// </summary>
 public class PointsUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI pointsText;

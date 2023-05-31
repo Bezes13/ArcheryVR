@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Arrow class which handles the behaviour of an Arrow
+/// </summary>
 public class Arrow : MonoBehaviour
 {
     private const float ArrowStingOffset = 0.15f;

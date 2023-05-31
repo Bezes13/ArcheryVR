@@ -4,6 +4,10 @@ using System;
 using TMPro;
 using Voronoi;
 
+/// <summary>
+/// ShatterObject handles the destroying of an Object, it creates the voronoi graph and creates the new existing
+/// mesh parts
+/// </summary>
 public class ShatterObject : MonoBehaviour
 {
     [SerializeField] protected PhysicMaterial phy;
@@ -13,8 +17,8 @@ public class ShatterObject : MonoBehaviour
     [SerializeField] protected Material mat;
     [SerializeField] protected GameObject tgt;
     [SerializeField] protected int num;
-    [SerializeField, Range(0.1f, 10f)] float scale = 1f;
-    [SerializeField, Range(0, 10)] private int points = 0;
+    [SerializeField, Range(0.1f, 10f)] private float scale = 1f;
+    [SerializeField, Range(0, 10)] private int points;
     [SerializeField] private TextMeshProUGUI distance;
     private Bow _bow;
     [SerializeField] private List<Rigidbody> objects = new();

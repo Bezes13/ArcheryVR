@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Arrow Spawner creates Arrows on given positions
+/// </summary>
 public class ArrowSpawner : MonoBehaviour
 {
     [SerializeField] private List<Transform> positions;

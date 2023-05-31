@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the creation of given target prefabs on given positions
+/// </summary>
 public class TargetSpawner : MonoBehaviour
 {
     [SerializeField] private List<Transform> positions;

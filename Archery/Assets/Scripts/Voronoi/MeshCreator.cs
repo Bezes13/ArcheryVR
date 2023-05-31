@@ -34,6 +34,7 @@ namespace Voronoi
 
             private const float Epsilon = 1e-5f;
 
+            [Flags]
             public enum PlaneType
             {
                 OnPlane, Front,Back,Spanning

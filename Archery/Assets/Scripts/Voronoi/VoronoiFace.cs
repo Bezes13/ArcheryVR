@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Voronoi
 {
+    /// <summary>
+    /// Represents a face of a Voronoi Cell, the Key references the cell and
+    /// the vertices represent all points which belong to the face
+    /// </summary>
     public class VoronoiFace
     {
         public Vector3 Key { get; }
