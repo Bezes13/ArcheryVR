@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Voronoi
 {
+    /// <summary>
+    /// Represents a DelaunayNode, containing its tetrahedron and his neighbour Nodes.
+    /// </summary>
     public class DelaunayNode
     {
         public readonly Tetrahedron Tetrahedrons;

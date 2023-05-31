@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Voronoi
 {
+    /// <summary>
+    /// Is Used to create a Delaunay Triangulation.
+    /// </summary>
     public class Delaunay
     {
         public const float Threshold = 0.0001f;
@@ -22,15 +25,16 @@ namespace Voronoi
                 new Vector3(0, 0, scl * 3));
             Nodes = new List<DelaunayNode> {new(root.a, root.b, root.c, root.d)};
             // Generate Random Points and add them to Delaunay 
+            AddPoints(num, scl, target);
+        }
+
+        private void AddPoints(int num, float scl, GameObject target)
+        {
             for (var i = 0; i < num; i++)
             {
                 var p = new Vector3(UnityEngine.Random.value * scl, UnityEngine.Random.value * scl,
                     UnityEngine.Random.value * scl);
-                Debug.Log(p);
                 p = target.GetComponent<MeshFilter>().mesh.bounds.ClosestPoint(p);
-                Debug.Log(p);
-                // Split(p*target.transform.localScale.x); 
-
                 AddPoint(p);
             }
         }
@@ -70,7 +74,7 @@ namespace Voronoi
                 if (!triangle.Intersects(new Line(p1, p2), out var i))
                 {
                     // case 2: two sides are visible
-                    // find the conlficting tetra (a,b,p,d)
+                    // find the conflicting tetra (a,b,p,d)
                     Vector3 far;
                     if (Line.IsIntersecting(new Line(i, triangle.a), new Line(triangle.b, triangle.c))) far = triangle.a;
                     else if (Line.IsIntersecting(new Line(i, triangle.b), new Line(triangle.c, triangle.a))) far = triangle.b;

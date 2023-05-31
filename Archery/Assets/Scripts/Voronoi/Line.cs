@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace Voronoi
 {
+    /// <summary>
+    /// Represents a Line between two Vector3, has a method to calculate if two lines are intersecting for
+    /// the calculation of the delaunay algorithm.
+    /// </summary>
     public class Line
     {
         public Vector3 a;

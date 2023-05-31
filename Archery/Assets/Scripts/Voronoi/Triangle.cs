@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Voronoi
 {
+    /// <summary>
+    /// Represents a Triangle 
+    /// </summary>
     public class Triangle
     {
         public Vector3 a;

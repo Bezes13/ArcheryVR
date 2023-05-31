@@ -37,15 +37,14 @@ public class ShatterObject : MonoBehaviour
     {
         var delaunay = new Delaunay(num, scale, tgt);
         var voronoi = new VoronoiGraph(delaunay.Nodes.ToArray());
-        var realMesh = MeshCreater.GenCsgTree(tgt.transform);
+        var realMesh = MeshCreator.GenerateCsgTree(tgt.transform);
 
-        foreach (var node in voronoi.nodes)
+        foreach (var node in voronoi.cells)
         {
-            var mesh = node.Value.Meshilify();
+            var mesh = node.Value.CreateMesh();
             var t1 = Clone(realMesh);
-            var t2 = MeshCreater.GenCsgTree(Matrix4x4.TRS(node.Value.center * 1.01f, Quaternion.identity, Vector3.one),
-                mesh, true);
-            var o = MeshCreater.Meshing(MeshCreater.Intersection(t1, t2));
+            var t2 = MeshCreator.GenerateCsgTree(Matrix4x4.TRS(node.Value.center * 1.01f, Quaternion.identity, Vector3.one), mesh, true);
+            var o = MeshCreator.CreateMesh(MeshCreator.Intersection(t1, t2));
             var g = new GameObject();
             var filter = g.AddComponent<MeshFilter>();
             var meshRenderer = g.AddComponent<MeshRenderer>();
@@ -67,11 +66,11 @@ public class ShatterObject : MonoBehaviour
         tgt.SetActive(false);
     }
 
-    private static MeshCreater.Polygon[] Clone(MeshCreater.Polygon[] src)
+    private static MeshCreator.Polygon[] Clone(MeshCreator.Polygon[] src)
     {
         var l = src.Length;
-        var d = new MeshCreater.Polygon[l];
-        for (var i = 0; i < l; i++) d[i] = new MeshCreater.Polygon(src[i]);
+        var d = new MeshCreator.Polygon[l];
+        for (var i = 0; i < l; i++) d[i] = new MeshCreator.Polygon(src[i]);
         return d;
     }
 

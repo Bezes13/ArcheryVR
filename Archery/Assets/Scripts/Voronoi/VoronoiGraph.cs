@@ -6,59 +6,62 @@ namespace Voronoi
 {
     public class VoronoiGraph
     {
-        public Dictionary<Vector3, VoronoiNode> nodes;
+        public readonly Dictionary<Vector3, VoronoiNode> cells;
 
         public VoronoiGraph(DelaunayNode[] delaunayGraphNode3Ds)
         {
-            nodes = new Dictionary<Vector3, VoronoiNode>();
+            cells = new Dictionary<Vector3, VoronoiNode>();
+
             foreach (var d in delaunayGraphNode3Ds)
             {
-                var t = d.Tetrahedrons;
-                // each Point from a tetra is voronoi-cell
-                AddToNodes(t.a);
-                AddToNodes(t.b);
-                AddToNodes(t.c);
-                AddToNodes(t.d);
-                var centerTetra = t.GetSphere().center;
-                // find edges
+                var tetra = d.Tetrahedrons;
+                AddCell(tetra.a);
+                AddCell(tetra.b);
+                AddCell(tetra.c);
+                AddCell(tetra.d);
+
+                var centerTetra = tetra.GetSphere().center;
+
                 foreach (var n in d.neighbor)
                 {
                     var centerNeighbor = n.Tetrahedrons.GetSphere().center;
                     var centerVec = centerNeighbor - centerTetra;
-                    var centerSegment = new Line(centerTetra, centerNeighbor);
-                    AssignSegment(t.b, t.a, centerVec, centerSegment);
-                    AssignSegment(t.c, t.a, centerVec, centerSegment);
-                    AssignSegment(t.d, t.a, centerVec, centerSegment);
-                    AssignSegment(t.c, t.b, centerVec, centerSegment);
-                    AssignSegment(t.d, t.b, centerVec, centerSegment);
-                    AssignSegment(t.a, t.b, centerVec, centerSegment);
-                    AssignSegment(t.d, t.c, centerVec, centerSegment);
-                    AssignSegment(t.a, t.c, centerVec, centerSegment);
-                    AssignSegment(t.b, t.c, centerVec, centerSegment);
-                    AssignSegment(t.a, t.d, centerVec, centerSegment);
-                    AssignSegment(t.b, t.d, centerVec, centerSegment);
-                    AssignSegment(t.c, t.d, centerVec, centerSegment);
-                }
+                    var centerEdge = new Line(centerTetra, centerNeighbor);
 
-                void AddToNodes(Vector3 tetra)
-                {
-                    if (!nodes.ContainsKey(tetra))
-                    {
-                        nodes.Add(tetra, new VoronoiNode(tetra));
-                    }
+                    TryAddEdge(tetra.a, tetra.b, centerVec, centerEdge);
+                    TryAddEdge(tetra.a, tetra.c, centerVec, centerEdge);
+                    TryAddEdge(tetra.a, tetra.d, centerVec, centerEdge);
+                    TryAddEdge(tetra.b, tetra.a, centerVec, centerEdge);
+                    TryAddEdge(tetra.b, tetra.c, centerVec, centerEdge);
+                    TryAddEdge(tetra.b, tetra.d, centerVec, centerEdge);
+                    TryAddEdge(tetra.c, tetra.a, centerVec, centerEdge);
+                    TryAddEdge(tetra.c, tetra.b, centerVec, centerEdge);
+                    TryAddEdge(tetra.c, tetra.d, centerVec, centerEdge);
+                    TryAddEdge(tetra.d, tetra.a, centerVec, centerEdge);
+                    TryAddEdge(tetra.d, tetra.b, centerVec, centerEdge);
+                    TryAddEdge(tetra.d, tetra.c, centerVec, centerEdge);
                 }
+            }
+        }
 
-                void AssignSegment(Vector3 pair, Vector3 center, Vector3 v1, Line sg)
-                {
-                    // if vecs are vertical add as segment
-                    if (!(Math.Abs(Vector3.Dot(pair - center, v1)) < Delaunay.Threshold))
-                    {
-                        return;
-                    }
+        private void AddCell(Vector3 tetra)
+        {
+            if (!cells.ContainsKey(tetra))
+            {
+                cells.Add(tetra, new VoronoiNode(tetra));
+            }
+        }
 
-                    nodes.TryGetValue(center, out var v);
-                    v?.Segments.Add((sg, pair));
-                }
+        private void TryAddEdge(Vector3 pair, Vector3 center, Vector3 v1, Line edge)
+        {
+            if (!(Math.Abs(Vector3.Dot(pair - center, v1)) < Delaunay.Threshold))
+            {
+                return;
+            }
+
+            if (cells.TryGetValue(center, out var v))
+            {
+                v.Segments.Add((edge, pair));
             }
         }
     }

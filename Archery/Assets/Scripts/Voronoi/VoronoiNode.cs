@@ -7,8 +7,8 @@ namespace Voronoi
     public class VoronoiNode
     {
         public Vector3 center;
-        public readonly List<(Line sg, Vector3 pair)> Segments;
-        private List<VoronoiFace> _faces;
+        public readonly List<(Line sg, Vector3 neighbour)> Segments;
+        //private List<VoronoiFace> _faces;
 
         public VoronoiNode(Vector3 c)
         {
@@ -16,9 +16,9 @@ namespace Voronoi
             Segments = new List<(Line, Vector3)>();
         }
 
-        public Mesh Meshilify()
+        public Mesh CreateMesh()
         {
-            _faces = new List<VoronoiFace>();
+             var _faces = new List<VoronoiFace>();
 
             foreach ((_, Vector3 pair) in Segments)
             {
@@ -32,8 +32,8 @@ namespace Voronoi
             {
                 foreach (var t in _faces)
                 {
-                    var (sg, pair) = t1;
-                    if (pair.Equals(t.Key))
+                    var (sg, neighbour) = t1;
+                    if (neighbour.Equals(t.Key))
                     {
                         t.TryAddVertices(sg, center);
                     }
