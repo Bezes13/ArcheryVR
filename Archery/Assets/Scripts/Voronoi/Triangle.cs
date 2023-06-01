@@ -58,47 +58,37 @@ namespace Voronoi
             this.c = c;
         }
 
-        public bool Intersects(Line e, out Vector3 p)
+        public bool CheckLineTriangleIntersection(Vector3 linePoint, Vector3 lineDirection, out Vector3 intersectionPoint)
         {
-            if (!CramersRule(e.a, Vector3.Normalize(e.b - e.a), out var d, out p))
+            Vector3 lineDirectionNormalized = lineDirection.normalized;
+
+            // Check if direction and normal are parallel
+            if (Math.Abs(Vector3.Dot(_n, lineDirectionNormalized)) < 0.0001f)
             {
+                intersectionPoint = default;
                 return false;
             }
+            // Calculate intersectionPoint
+            var t = Vector3.Dot(_n, a - linePoint) / Vector3.Dot(_n, lineDirectionNormalized);
 
-            var f1 = d.x is >= 0 and <= 1 && d.y is >= 0 and <= 1 && d.x + d.y <= 1;
-            var f2 = d.z >= 0 && d.z <= Vector3.Magnitude(e.b - e.a);
-            return f1 && f2;
+            // Check if intersection point is in triangle
+            intersectionPoint = linePoint + lineDirectionNormalized * t;
+            return IsPointInsideTriangle(intersectionPoint, a, b, c);
+        }
+        
+        static bool IsPointInsideTriangle(Vector3 point, Vector3 a, Vector3 b, Vector3 c)
+        {
+            var normal1 = Vector3.Cross(b - a, point - a);
+            var normal2 = Vector3.Cross(c - b, point - b);
+            var normal3 = Vector3.Cross(a - c, point - c);
+            
+            return Vector3.Dot(normal1, normal2) >= 0 && Vector3.Dot(normal1, normal3) >= 0;
         }
 
         public bool InSide(Vector3 p1, Vector3 p2)
         {
             double d = Vector3.Dot(_n, p1 - a) * Vector3.Dot(_n, p2 - a);
             return d >= 0;
-        }
-
-        bool CramersRule(Vector3 ogn, Vector3 ray, out Vector3 det, out Vector3 pos)
-        {
-            var e1 = b - a;
-            var e2 = c - a;
-            var denominator = new Matrix4x4(new Vector4(e1.x, e1.y, e1.z, 1), new Vector4(e2.x, e2.y, e2.z, 1),
-                new Vector4(-ray.x, -ray.y, -ray.z, 1), new Vector4(0, 0, 0, 1)).determinant;
-            if (Math.Abs(denominator) < Delaunay.Threshold)
-            {
-                det = default;
-                pos = default;
-                return false;
-            }
-
-            var d = ogn - a;
-            var u = new Matrix4x4(new Vector4(d.x, d.y, d.z, 1), new Vector4(e2.x, e2.y, e2.z, 1),
-                new Vector4(-ray.x, -ray.y, -ray.z, 1), new Vector4(0, 0, 0, 1)).determinant / denominator;
-            var v = new Matrix4x4(new Vector4(e1.x, e1.y, e1.z, 1), new Vector4(d.x, d.y, d.z, 1),
-                new Vector4(-ray.x, -ray.y, -ray.z, 1), new Vector4(0, 0, 0, 1)).determinant / denominator;
-            var t = new Matrix4x4(new Vector4(e1.x, e1.y, e1.z, 1), new Vector4(e2.x, e2.y, e2.z, 1),
-                new Vector4(d.x, d.y, d.z, 1), new Vector4(0, 0, 0, 1)).determinant / denominator;
-            pos = ogn + ray * t;
-            det = new Vector3(u, v, t);
-            return true;
         }
     }
 }

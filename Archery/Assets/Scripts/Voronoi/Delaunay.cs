@@ -71,7 +71,7 @@ namespace Voronoi
                 if (!t.Tetrahedrons.GetSphere().Contains(p2)) continue;
             
             
-                if (!triangle.Intersects(new Line(p1, p2), out var i))
+                if (!triangle.CheckLineTriangleIntersection(p1, p2-p1, out var i))
                 {
                     // case 2: two sides are visible
                     // find the conflicting tetra (a,b,p,d)
