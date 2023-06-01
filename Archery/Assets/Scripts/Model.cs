@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Model : MonoBehaviour
 {
     private int _points;
-    private int arrows;
+    private int _arrows;
     private Vector3 _windDirection;
     public float windForce = 10.0f;
 
@@ -24,11 +24,11 @@ public class Model : MonoBehaviour
     }
 
     public void IncArrow(){
-        arrows+=1;
+        _arrows+=1;
     }
 
     public int GetArrowCount(){
-        return arrows;
+        return _arrows;
     }
 
     public int GetPoints()

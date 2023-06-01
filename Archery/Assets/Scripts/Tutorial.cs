@@ -10,7 +10,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private GameObject third;
     [SerializeField] private GameObject last;
     [SerializeField] private ArrowSpawner spawner;
-    // Start is called before the first frame update
+    
     void Start()
     {
         first.SetActive(true);
@@ -33,7 +33,7 @@ public class Tutorial : MonoBehaviour
     {
         last.SetActive(true);
     }
-    // Update is called once per frame
+
     void Update()
     {
         if(last.activeSelf){

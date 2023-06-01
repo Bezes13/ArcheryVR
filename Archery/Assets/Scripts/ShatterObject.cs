@@ -12,7 +12,6 @@ public class ShatterObject : MonoBehaviour
 {
     [SerializeField] protected PhysicMaterial phy;
     [SerializeField] private ParticleSystem starExplosion;
-    private AudioSource _audioSource;
     [SerializeField] private AudioClip deadSound;
     [SerializeField] protected Material mat;
     [SerializeField] protected GameObject tgt;
@@ -20,8 +19,9 @@ public class ShatterObject : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] private float scale = 1f;
     [SerializeField, Range(0, 10)] private int points;
     [SerializeField] private TextMeshProUGUI distance;
-    private Bow _bow;
     [SerializeField] private List<Rigidbody> objects = new();
+    private Bow _bow;
+    private AudioSource _audioSource;
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class ShatterObject : MonoBehaviour
             : "+" + points);
     }
 
-    void Break()
+    private void Break()
     {
         var delaunay = new Delaunay(num, scale, tgt);
         var voronoi = new VoronoiGraph(delaunay.Nodes.ToArray());

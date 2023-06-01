@@ -17,6 +17,36 @@ public class Arrow : MonoBehaviour
     private Rigidbody _rigid;
     private Vector3 _lastVel;
 
+    public void Grab()
+    {
+        _isGrabbed = true;
+    }
+
+    public void UnGrab()
+    {
+        _isGrabbed = false;
+    }
+
+    public void FireArrow()
+    {
+        if (!bow.IsBowTensed() || !isAttachedToBow || fired)
+        {
+            return;
+        }
+        _model.IncArrow();
+        Debug.Log("Boom");
+        isAttachedToBow = false;
+        fired = true;
+        var projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
+        var projectorVecNormalized = projectorVec.normalized;
+        _rigid.freezeRotation = false;
+        _rigid.useGravity = true;
+        _rigid.isKinematic = false;
+        _rigid.AddForce( projectorVecNormalized * bow.GetBowForce() * 20f, ForceMode.VelocityChange );
+		_rigid.AddTorque(  projectorVecNormalized * 20 );
+        bow.ResetSting();
+    }
+
     private void Start()
     {
         _rigid = GetComponent<Rigidbody>();
@@ -48,16 +78,6 @@ public class Arrow : MonoBehaviour
         transform.position = arrowStringPosition + transform.position - stingTransform.position;
     }
 
-    public void Grab()
-    {
-        _isGrabbed = true;
-    }
-
-    public void UnGrab()
-    {
-        _isGrabbed = false;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         var target = other.gameObject.GetComponent<ShatterObject>();
@@ -69,26 +89,5 @@ public class Arrow : MonoBehaviour
 
         _model.AddPoints(target.GetPoints());
         fired = false;
-    }
-
-
-    public void FireArrow()
-    {
-        if (!bow.IsBowTensed() || !isAttachedToBow || fired)
-        {
-            return;
-        }
-        _model.IncArrow();
-        Debug.Log("Boom");
-        isAttachedToBow = false;
-        fired = true;
-        var projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
-        var projectorVecNormalized = projectorVec.normalized;
-        _rigid.freezeRotation = false;
-        _rigid.useGravity = true;
-        _rigid.isKinematic = false;
-        _rigid.AddForce( projectorVecNormalized * bow.GetBowForce() * 20f, ForceMode.VelocityChange );
-		_rigid.AddTorque(  projectorVecNormalized * 20 );
-        bow.ResetSting();
     }
 }

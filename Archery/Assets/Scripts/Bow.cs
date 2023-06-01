@@ -8,22 +8,6 @@ public class Bow : MonoBehaviour
     private const float MaxStingRange = 0.0738f;
     private const float MinStingValue = 0.01075402f;
 
-    private readonly float[] _animationValues =
-    {
-        -0.01075402f,
-        -0.01096038f,
-        -0.01180249f,
-        -0.01364458f,
-        -0.01671125f,
-        -0.02091927f,
-        -0.02597514f,
-        -0.03288396f,
-        -0.04263402f,
-        -0.0542632f,
-        -0.06590831f,
-        -0.07389119f
-    };
-
     private Animator _animator;
 
     [SerializeField] private Transform arrowStringPosition;
@@ -91,15 +75,30 @@ public class Bow : MonoBehaviour
 
     private float GetStringPosition(float y)
     {
-        if (y >= _animationValues[0])
+        float[] animationValues =
+        {
+            -0.01075402f,
+            -0.01096038f,
+            -0.01180249f,
+            -0.01364458f,
+            -0.01671125f,
+            -0.02091927f,
+            -0.02597514f,
+            -0.03288396f,
+            -0.04263402f,
+            -0.0542632f,
+            -0.06590831f,
+            -0.07389119f
+        };
+        if (y >= animationValues[0])
         {
             return 0;
         }
 
-        for (var i = 0; i < _animationValues.Length - 1; i++)
+        for (var i = 0; i < animationValues.Length - 1; i++)
         {
-            if (!(y > _animationValues[i])) continue;
-            var f = Helper(_animationValues[i], _animationValues[i + 1], i);
+            if (!(y > animationValues[i])) continue;
+            var f = Helper(animationValues[i], animationValues[i + 1], i);
 
             return f / 18.0f;
         }

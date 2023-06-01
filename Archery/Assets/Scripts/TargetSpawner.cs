@@ -13,8 +13,7 @@ public class TargetSpawner : MonoBehaviour
     private int _nextPrefab;
 
     private const int TargetsOnField = 5;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _targets = new List<(ShatterObject, int)>();
@@ -26,7 +25,6 @@ public class TargetSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
         (ShatterObject, int) delete = (null, 0);

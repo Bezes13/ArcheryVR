@@ -55,10 +55,10 @@ namespace Voronoi
             // Go through the stacked tetras
             while (_stack.Count > 0)
             {
-                // tetra with (a,b,c,p)
+                // face to check (a, b, c)
                 var triangle = _stack.Pop();
-                // triangle (a,b,c)
-                // find neighbour (a,b,c,d)
+                
+                // get sharing tetras (a, b, c, d) and (a, b, c, p)
                 var nodes = Nodes.FindAll(x => x.Tetrahedrons.ContainsFace(triangle));
                 if (nodes.Count != 2) continue;
                 var node1 = nodes[0];

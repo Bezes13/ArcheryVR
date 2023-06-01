@@ -17,8 +17,8 @@ public class BowUI : MonoBehaviour
     private void Update()
     {
         power.text = Math.Round(100 * bow.GetBowForce()).ToString(CultureInfo.InvariantCulture);
-        Vector3 projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
-        Vector3 projectorVecNorm = projectorVec.normalized;
+        var projectorVec = bow.GetArrowWoodPosition() - bow.GetArrowStringPosition();
+        var projectorVecNorm = projectorVec.normalized;
         if (bow.GetArrowWoodPosition().y < bow.GetArrowStringPosition().y)
         {
             angle.text = "-";
