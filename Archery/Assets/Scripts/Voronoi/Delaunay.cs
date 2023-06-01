@@ -10,12 +10,12 @@ namespace Voronoi
     public class Delaunay
     {
         public const float Threshold = 0.0001f;
-        private readonly Stack<DelaunayNode> _stack;
+        private readonly Stack<Triangle> _stack;
         public List<DelaunayNode> Nodes { get; }
 
         public Delaunay(int num, float scl, GameObject target)
         {
-            _stack = new Stack<DelaunayNode>();
+            _stack = new Stack<Triangle>();
             // The tetrahedron which contains the object
             // offset = target.transform.position;
             var root = new Tetrahedron(
@@ -49,26 +49,28 @@ namespace Voronoi
             Nodes.AddRange(splitNode);
             foreach (var tetra in splitNode)
             {
-                _stack.Push(tetra);
+                _stack.Push(tetra.Tetrahedrons.RemainingTriangle(p));
             }
-
+            
             // Go through the stacked tetras
             while (_stack.Count > 0)
             {
                 // tetra with (a,b,c,p)
-                var t = _stack.Pop();
+                var triangle = _stack.Pop();
                 // triangle (a,b,c)
-                var triangle = t.Tetrahedrons.RemainingTriangle(p);
                 // find neighbour (a,b,c,d)
-                var node = t.GetFacingNode(triangle);
-                if (node == null) continue;
+                var nodes = Nodes.FindAll(x => x.Tetrahedrons.ContainsFace(triangle));
+                if (nodes.Count != 2) continue;
+                var node1 = nodes[0];
+                var node2 = nodes[1];
+               
                 // get the remaining points
-                var p1 = p;
+                var p1 = node1.Tetrahedrons.RemainingPoint(triangle);
                 // get d
-                var p2 = node.Tetrahedrons.RemainingPoint(triangle);
+                var p2 = node2.Tetrahedrons.RemainingPoint(triangle);
             
                 // check if d is inside sphere of (a,b,c,p)
-                if (!t.Tetrahedrons.GetSphere().Contains(p2)) continue;
+                if (!node1.Tetrahedrons.GetSphere().Contains(p2)) continue;
             
             
                 if (!triangle.CheckLineTriangleIntersection(p1, p2-p1, out var i))
@@ -83,24 +85,24 @@ namespace Voronoi
 
                     var ab = triangle.Remaining(far);
                     var t3 = new Triangle(ab, p1);
-                    var conflictingNode = t.GetFacingNode(t3);
+                    var conflictingNode = node1.GetFacingNode(t3);
                     // if the remaining point is not d, then we can continue else do the flip
                     if (!Equals(conflictingNode.Tetrahedrons.RemainingPoint(t3), p2)) continue;
                 
-                    var o = Flip32(t, node, conflictingNode, p1, far, p2, ab.a, ab.b);
+                    var o = Flip32(node1, node2, conflictingNode, p1, far, p2, ab.a, ab.b);
                     FlipResult(o);
-                    Nodes.Remove(t);
-                    Nodes.Remove(node);
+                    Nodes.Remove(node1);
+                    Nodes.Remove(node2);
                     Nodes.Remove(conflictingNode);
                     Nodes.AddRange(o);
                 }
                 else
                 {
                     // case 1: only one face is visible
-                    var o = Flip23(t, node, p1, p2, triangle);
+                    var o = Flip23(node1, node2, p1, p2, triangle);
                     FlipResult(o);
-                    Nodes.Remove(t);
-                    Nodes.Remove(node);
+                    Nodes.Remove(node1);
+                    Nodes.Remove(node2);
                     Nodes.AddRange(o);
                 }
             
@@ -108,7 +110,8 @@ namespace Voronoi
                 {
                     foreach (var item in flip)
                     {
-                        _stack.Push(item);
+                        _stack.Push(item.Tetrahedrons.RemainingTriangle(p1));
+                        _stack.Push(item.Tetrahedrons.RemainingTriangle(p2));
                     }
 
                 }
