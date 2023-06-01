@@ -10,11 +10,13 @@ public class PointsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private TextMeshProUGUI windText;
     [SerializeField] private TextMeshProUGUI windText2;
+    [SerializeField] private TextMeshProUGUI Arrows;
     [SerializeField] private Model model;
 
     private void Update()
     {
         pointsText.text = model.GetPoints().ToString();
+        Arrows.text = model.GetArrowCount().ToString();
         var dir = model.GetWind();
         var side = Math.Abs(Math.Round(dir.x, 1)) + "ms " + (dir.x < 0 ? "right" : "left");
         var high = Math.Abs(Math.Round(dir.y, 1)) + "ms " + (dir.y < 0 ? "down" : "up");

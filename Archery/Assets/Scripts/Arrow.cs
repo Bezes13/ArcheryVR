@@ -78,7 +78,7 @@ public class Arrow : MonoBehaviour
         {
             return;
         }
-
+        _model.IncArrow();
         Debug.Log("Boom");
         isAttachedToBow = false;
         fired = true;
