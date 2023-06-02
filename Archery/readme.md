@@ -6,4 +6,5 @@ Die Aufteilung des Meshes findet mittels eines 3D Voronoi Graph statt,
 welches über das Mesh gelegt wird und über die Schnittkanten das Mesh aufteilt.
 
 Die verwendete Unity version ist2021.3.15F1
+
 Als Hardware wird die Okkulus Rift S mit zwei HandControllern verwendet. 
