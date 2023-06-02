@@ -1,4 +1,4 @@
-Dieses Projekt wurde im Rahmen des Moduls "TM038 - Prakt. Virtuelle Realität und Simulation" erstellt
+Dieses Projekt wurde im Rahmen des Moduls "TM038 - Prakt. Virtuelle Realität und Simulation" für die FH-Wedel erstellt
 und behandelt ein Spiel zum Bogenschießen in VR mittels der Occulus Rift S in Unity \cite{2} mit 
 zusätzlicher Mesh Zerstörung der getroffenen Ziele. Ein Zielobjekt welches von einem Pfeil getroffen wird,
 wird auf Mesh-Ebene zerstört und in etliche Teilobjekte aufgeteilt.
