@@ -8,10 +8,12 @@ public class Arrow : MonoBehaviour
     private const float ArrowStingOffset = 0.15f;
     [SerializeField] private Transform stingTransform;
     [SerializeField] private Bow bow;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip deadSound;
     
     public bool isAttachedToBow;
     public bool fired;
-    
+    private bool decreased;
     private bool _isGrabbed;
     private Model _model;
     private Rigidbody _rigid;
@@ -55,6 +57,7 @@ public class Arrow : MonoBehaviour
         Physics.IgnoreCollision(bow.GetComponent<Collider>(), GetComponent<Collider>());
         Physics.IgnoreCollision(FindObjectOfType<Sting>().GetComponent<Collider>(),
             GetComponent<Collider>());
+        _audioSource = bow.gameObject.GetComponent<AudioSource>();   
     }
 
     private void Update()
@@ -81,13 +84,14 @@ public class Arrow : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var target = other.gameObject.GetComponent<ShatterObject>();
-
         if (target == null)
         {
             return;
         }
-
+        _audioSource.clip = deadSound; 
+        _audioSource.Play();
         _model.AddPoints(target.GetPoints());
+        _model.IncArrow(-1);
         fired = false;
     }
 }

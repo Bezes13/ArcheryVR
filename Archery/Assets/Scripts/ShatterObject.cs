@@ -19,13 +19,15 @@ public class ShatterObject : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] private float scale = 1f;
     [SerializeField, Range(0, 10)] private int points;
     [SerializeField] private TextMeshProUGUI distance;
-    [SerializeField] private List<Rigidbody> objects = new();
+   
+    private Model _model;
     private Bow _bow;
     private AudioSource _audioSource;
 
     private void Start()
     {
         _bow = FindObjectOfType<Bow>();
+        _model = FindObjectOfType<Model>();
         _audioSource = _bow.gameObject.GetComponent<AudioSource>();
         _audioSource.clip = deadSound;
     }
@@ -64,7 +66,7 @@ public class ShatterObject : MonoBehaviour
             var sharedMaterial = new Material(mat);
             meshRenderer.sharedMaterial = sharedMaterial;
             item.gameObject.transform.position += tgt.transform.position;
-            objects.Add(item);
+            _model.toDestroy.Add(item);
         }
 
         tgt.SetActive(false);
@@ -91,7 +93,7 @@ public class ShatterObject : MonoBehaviour
 
     public (int, int) GetPoints()
     {
-        _audioSource.Play();
+        
         return ((int) Math.Round(Vector3.Distance(transform.position, _bow.transform.position)), points);
     }
 }

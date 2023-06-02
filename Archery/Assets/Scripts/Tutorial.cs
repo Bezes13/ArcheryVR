@@ -36,7 +36,7 @@ public class Tutorial : MonoBehaviour
 
     void Update()
     {
-        if(last.activeSelf){
+        if(third.activeSelf){
             return;
         }
         foreach (var (arrow, _) in spawner.arrows)

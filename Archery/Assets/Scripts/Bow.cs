@@ -24,6 +24,10 @@ public class Bow : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
         var localPosition = arrowStringPosition.localPosition;
         localPosition =
             new Vector3(0, Mathf.Max(-MaxStingRange, localPosition.y), 0);

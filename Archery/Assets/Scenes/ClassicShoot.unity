@@ -690,12 +690,6 @@ Transform:
   m_Father: {fileID: 390228383}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &229768916 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5141249525221223986, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5142964319597617360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &239136316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -915,172 +909,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &472364312 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5142964319597617374, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5142964319597617360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229768916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fa676038dace48d1b23a4cb363a8417, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!82 &472364319
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229768916}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &472364320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229768916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f8f6e9e6f3e114b9bf9a57c2160615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointable: {fileID: 472364323}
-  _whenRelease:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenHover:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenUnhover:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelect:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1668225245}
-        m_TargetAssemblyTypeName: Tutorial, Assembly-CSharp
-        m_MethodName: PickUpBow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _whenUnselect:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenMove:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenCancel:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &472364323 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5142964319597617375, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5142964319597617360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229768916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &533464345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,8 +967,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now you can release the arrow and grab the string and pull it towards you.
-    With releasing the string, the arrow will launch in the direction it points at.
+  m_text: Now Grab the string and pull it towards you. With releasing the string,
+    the arrow will launch in the direction it points at.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1167,7 +995,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.35
+  m_fontSize: 20.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1429,24 +1257,6 @@ Transform:
   m_Father: {fileID: 390228383}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &791021538 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5141168599320625728, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5142964319597617360}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &791021544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791021538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e2cbfbb28aefce4087af21481c67f70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &811944956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,7 +2068,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now you know how to shoot, let's destroy some Targets, these Orange Jewels.
+  m_text: Press the Button next to the arrows to quit the Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2285,7 +2095,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.85
+  m_fontSize: 31.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2687,7 +2497,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668225240}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -3.15}
+  m_LocalPosition: {x: 0, y: 0, z: -1.53}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2701,7 +2511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.98, y: 4}
+  m_AnchoredPosition: {x: 4.29, y: 3.76}
   m_SizeDelta: {x: 1027.5, y: 503.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1668225245
@@ -2720,7 +2530,6 @@ MonoBehaviour:
   second: {fileID: 811944956}
   third: {fileID: 83781600}
   last: {fileID: 1132360650}
-  bow: {fileID: 472364312}
   spawner: {fileID: 534333735}
 --- !u!1 &1695182933
 GameObject:
@@ -2862,7 +2671,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next Scene
+  m_text: Quit Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3343,7 +3152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400722910f264fc8931a02bc1ff94ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WindForce: 0
+  windForce: 10
+  Replay: {fileID: 0}
+  Resultscreen: {fileID: 0}
+  toDestroy: []
+  targetTime: 2
 --- !u!4 &1969435155
 Transform:
   m_ObjectHideFlags: 0
@@ -3428,19 +3241,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5142964319597617374, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
-      propertyPath: clip
-      value: 
-      objectReference: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
-    - target: {fileID: 5142964319597617374, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-        type: 3}
       propertyPath: spawner
       value: 
       objectReference: {fileID: 534333735}
-    - target: {fileID: 5142964319597617374, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-        type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 472364319}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.size
@@ -3448,9 +3251,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
-      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 472364312}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3458,13 +3261,8 @@ PrefabInstance:
       objectReference: {fileID: 1668225245}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
-      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 472364312}
-    - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-        type: 3}
-      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShotFired
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
@@ -3473,28 +3271,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
-      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: ShotFired
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-        type: 3}
-      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Bow, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-        type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Tutorial, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
         type: 3}
-      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Bow, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142964319597617383, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
-        type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627981787101409099, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1668225245}
+    - target: {fileID: 7627981787101409099, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PickUpBow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c, type: 3}
@@ -3524,7 +3317,7 @@ PrefabInstance:
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.27022135
+      value: -1.395
       objectReference: {fileID: 0}
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
@@ -3534,22 +3327,22 @@ PrefabInstance:
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7264973
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.68716943
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
@@ -3559,7 +3352,7 @@ PrefabInstance:
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -86.813
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7933419363587802235, guid: e9c0dcd9bb2b32d4292a923c61616ecc,
         type: 3}

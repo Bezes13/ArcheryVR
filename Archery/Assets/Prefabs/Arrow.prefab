@@ -778,6 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stingTransform: {fileID: 4442053054533758633}
   bow: {fileID: 5142964319597617374, guid: 4c774826bb8fbdd4d8b9b273c8da2f3c, type: 3}
+  deadSound: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   isAttachedToBow: 0
   fired: 0
 --- !u!1 &4444637375357633445
