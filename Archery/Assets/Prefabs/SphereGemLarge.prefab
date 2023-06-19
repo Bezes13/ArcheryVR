@@ -242,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810246318115314538}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.499, y: 0.444, z: 0.463}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -357,11 +357,10 @@ MonoBehaviour:
   deadSound: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   mat: {fileID: 2100000, guid: 5a9e6cf91cbfc1a4fbc9470cca37b97a, type: 2}
   tgt: {fileID: 1810246318115314538}
-  num: 5
-  scale: 0.4
+  num: 2
+  scale: 0.42
   points: 0
   distance: {fileID: 5140280784736966962}
-  objects: []
 --- !u!82 &613037101634727382
 AudioSource:
   m_ObjectHideFlags: 0
